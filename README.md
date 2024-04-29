@@ -1,8 +1,8 @@
-# fishPy
+# samplePy
 Another experiment structure for analysis pipeline
-Flexible Infrastructure for Sample Handling in Python, Yay!
+Every one gets a slice of the samplePy.
 
-The fishPy structure should allow to create self objects that contain all experimental data (neurons, experimental protocol, etc.) that would allow to compare across other self objects. 
+The samplePy structure should allow to create  objects that contain all experimental data (neurons, experimental protocol, etc.) that would allow to compare across other self objects. 
 The scripts within this project should allow to create these structures and compare them across each other and within samples. 
 
 
