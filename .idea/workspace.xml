@@ -4,38 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66d86078-e06b-4e01-8448-8c72b5e5da0b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/samplePy.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/em/sample1.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/environment.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebooks/create_sample.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebooks/preprocessing_calcium_acquisition.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/config/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data_management/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data_management/data_getter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data_management/data_loader.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data_management/data_plotter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data_management/data_processor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/image_analysis/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/image_analysis/image_alignment.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sandbox/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/image_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/math_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/neuroi_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/struct_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_sample.py" afterDir="false" />
+    <list default="true" id="66d86078-e06b-4e01-8448-8c72b5e5da0b" name="Changes" comment="rough folder structure of samplePy with motion correction">
+      <change afterPath="$PROJECT_DIR$/data/calcium/2022-04-26/f3/sampleConfig_20220426_RM0008_130hpf_fP1_f3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/doctrees/index.doctree" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/.buildinfo" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/_sources/index.rst.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/alabaster.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/basic.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/custom.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/doctools.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/documentation_options.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/language_data.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/pygments.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/searchtools.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/sphinx_highlight.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/genindex.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/objects.inv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/search.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/build/html/searchindex.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/make.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/source/conf.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/source/index.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +61,7 @@
     "Python tests.Python tests in test_sample.py.executor": "Run",
     "Python tests.Python tests in tests.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "Merging main",
     "last_opened_file_path": "C:/Users/montruth/PycharmProjects/samplePy/data/calcium",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -177,6 +169,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="rough folder structure of samplePy with motion correction" />
+    <option name="LAST_COMMIT_MESSAGE" value="rough folder structure of samplePy with motion correction" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/samplePy$.coverage" NAME=" Coverage Results" MODIFIED="1713968908789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />

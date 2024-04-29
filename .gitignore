@@ -61,7 +61,6 @@ $RECYCLE.BIN/
 #specific scripts
 notebooks/pancuronium_bromide_test.py
 
-#specific files
-tests/20220426_RM0008_130hpf_fP1_f3.pickle
-/backup/
-/TPHATE/
+#specific folders
+
+/docs/
