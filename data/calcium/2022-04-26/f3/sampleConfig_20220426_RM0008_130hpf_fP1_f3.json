@@ -1,0 +1,55 @@
+{"info":{
+	"ID":"20220426_RM0008_130hpf_fP1_f3",
+	"pair":"P1",
+	"genotype":"aTubulin:GCamp6s x GAD1b:DsRed",
+	"phenotype":["both", "nacre"],
+	"dof":"21.04.2022",
+	"dpf":130,
+	"bodyLength":4,
+	"tof":"9:30",
+	"INFO":[]},
+
+"experiment":{
+	"paramsOdor":{
+		"odorList":["o1Ala", "o2Ser", "o3TDCA", "o4Ctrl", "o5GCA", "o6TCA", "o7Cad", "o8SA"],
+		"odorSequence":[1,2,3,4,6,7,5, 8, 5, 7,6,4,2,3,1,8,3,5,1,2,7,6,4,8],
+		"odorConc":[100, 100, 10, 0, 10, 10, 300, 0],
+		"nTrials":3,
+		"nFrames": 1500,
+		"pulseDelay":15,
+		"pulseDuration":5,
+		"trialInterval":60,
+		"missedTrials":[],
+		"bubbles":[],
+		"INFO":[]},
+	"params2P":{
+		"startTime":"19:29",
+		"endTime":"21:00",
+		"date":"2022.04.26",
+		"zoom":4.7,
+		"power":30,
+		"shutterDelay":40,
+		"sampFreq":30,
+		"nPlanes":4,
+		"doubling":1,
+		"anatoRange":150,
+		"refPlane":5,
+		"refFramesIgnored":40,
+		"refNFrames":300,
+		"refNPlanes":9,
+		"refSliceInterval":1.5,
+		"INFO":[]},
+	"paramsEM":{
+		"fixation":{
+			"protocol":"fBROPA"},
+		"embedding":{
+			"orientation":"anterior-up",
+			"material":[]},
+		"acquisition":{
+			"nSlice":[],
+			"xyzRes":[]},
+		"reconstruction":{
+			"method":[]}
+		}
+	}
+}

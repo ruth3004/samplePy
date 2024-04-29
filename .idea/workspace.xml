@@ -4,38 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66d86078-e06b-4e01-8448-8c72b5e5da0b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/samplePy.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/em/sample1.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/environment.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebooks/create_sample.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebooks/preprocessing_calcium_acquisition.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/config/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data_management/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data_management/data_getter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data_management/data_loader.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data_management/data_plotter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data_management/data_processor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/image_analysis/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/image_analysis/image_alignment.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sandbox/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/image_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/math_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/neuroi_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/struct_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_sample.py" afterDir="false" />
+    <list default="true" id="66d86078-e06b-4e01-8448-8c72b5e5da0b" name="Changes" comment="rough folder structure of samplePy with motion correction">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/preprocessing_calcium_acquisition.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/preprocessing_calcium_acquisition.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +40,11 @@
     "Python tests.Python tests in test_sample.py.executor": "Run",
     "Python tests.Python tests in tests.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.mappings": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.symlinks": "true",
+    "WebServerToolWindowPanel.toolwindow.show.date": "false",
+    "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
+    "WebServerToolWindowPanel.toolwindow.show.size": "false",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/Users/montruth/PycharmProjects/samplePy/data/calcium",
     "node.js.detected.package.eslint": "true",
@@ -76,7 +52,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "vcs.Git",
     "settings.editor.splitter.proportion": "0.29735234",
     "vue.rearranger.settings.migration": "true"
   }
@@ -160,8 +136,17 @@
       <workItem from="1713965129621" duration="40000" />
       <workItem from="1713965180378" duration="3278000" />
       <workItem from="1713968482139" duration="3814000" />
-      <workItem from="1713972740685" duration="49826000" />
+      <workItem from="1713972740685" duration="63440000" />
     </task>
+    <task id="LOCAL-00001" summary="rough folder structure of samplePy with motion correction">
+      <option name="closed" value="true" />
+      <created>1714383816546</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714383816546</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -177,6 +162,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="rough folder structure of samplePy with motion correction" />
+    <option name="LAST_COMMIT_MESSAGE" value="rough folder structure of samplePy with motion correction" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/samplePy$.coverage" NAME=" Coverage Results" MODIFIED="1713968908789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
