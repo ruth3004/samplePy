@@ -65,7 +65,7 @@ def load_planes_from_folder(anatomy_dir, n_planes, doubling=True):
     return np.stack(planes)
 
 
-def load_planes_from_tif(tif_path, n_planes, doubling=True, ignore_frames=0):
+def split_double_planes(hyperstack_img):
     """
     Load planes from a (hyper)stack TIF file and reshape based on input parameters.
 
@@ -79,13 +79,11 @@ def load_planes_from_tif(tif_path, n_planes, doubling=True, ignore_frames=0):
     - numpy.ndarray: 3D array containing the reshaped planes in (slice,width,height) or(z,y,x) shape.
     """
 
-
-    doubling = 2 if doubling else 1
-
-    hyperstack_img = load_tiff_as_hyperstack(tif_path,1,n_planes,375)
+    n_planes = hyperstack_img.shape[0]
     print(hyperstack_img.shape)
+    doubling = 2
 
-    planes_stack = np.zeros((n_planes * doubling, hyperstack_img.shape[1], hyperstack_img.shape[2] // doubling, hyperstack_img.shape[3]))
+    planes_stack = np.zeros((n_planes * doubling , hyperstack_img.shape[1], hyperstack_img.shape[2] // doubling, hyperstack_img.shape[3]))
     print(planes_stack.shape)
     # Split and assign the planes based on the doubling factor
     for plane in range(n_planes):
@@ -95,7 +93,7 @@ def load_planes_from_tif(tif_path, n_planes, doubling=True, ignore_frames=0):
     return planes_stack
 
 
-def load_images_convert_to_stack(path, ending="*.tif"):
+def load_images_to_stack(path, ending="*.tif"):
     """
     Loads all images from a directory into a single stack.
     """
@@ -104,7 +102,7 @@ def load_images_convert_to_stack(path, ending="*.tif"):
 
 
 
-def load_tiff_as_hyperstack(file_path, n_channels, n_slices, n_time=None):
+def load_tiff_as_hyperstack(file_path, n_slices=1, n_channels=1, doubling=False):
     """
     Load a TIFF stack and reshape it into a hyperstack.
 
@@ -112,45 +110,22 @@ def load_tiff_as_hyperstack(file_path, n_channels, n_slices, n_time=None):
         file_path (str): Path to the TIFF file.
         n_channels (int): Number of channels.
         n_slices (int): Number of z-slices.
-        n_time (int): Number of time points.
 
     Returns:
         numpy.ndarray: A hyperstack array with dimensions [channel, slice, time, y, x].
     """
-    with tifffile.TiffFile(file_path) as tif:
-        images = tif.asarray()
+
+    images = tifffile.imread(file_path)
+    print(images.shape)
+
+    n_frames = images.shape[0]
 
     # Reshape and reorder to (channels, slices, time, y, x)
-    reshaped_images = images.reshape(n_time, n_channels, n_slices, images.shape[1], images.shape[2])
-    hyperstack = np.moveaxis(reshaped_images, 0, 2)  # Move time to the third axis
+    reshaped_images = images.reshape(n_channels,n_slices,n_frames//n_channels//n_slices,images.shape[1], images.shape[2],order="F")
+    print(reshaped_images.shape)
+    hyperstack = np.squeeze(reshaped_images)
+    if doubling:
+        return split_double_planes(hyperstack)
+    else:
+        return hyperstack
 
-    return np.squeeze(hyperstack)
-
-def load_raw_acquisition(file_path, n_channels, n_slices, n_time):
-    """
-    Load raw acquisition data from a TIFF file formatted as a hyperstack.
-
-    Parameters:
-        file_path (str): Path to the raw acquisition TIFF file.
-        n_channels (int): Number of channels in the TIFF file.
-        n_slices (int): Number of z-slices per time point.
-        n_time (int): Number of time points.
-
-    Returns:
-        numpy.ndarray: A hyperstack array [channel, slice, time, y, x].
-    """
-    return load_tiff_as_hyperstack(file_path, n_channels, n_slices, n_time)
-
-def load_anatomy_stack(file_path, n_channels, n_slices):
-    """
-    Load anatomy data from a TIFF file formatted as a hyperstack, assuming one time point.
-
-    Parameters:
-        file_path (str): Path to the anatomy TIFF file.
-        n_channels (int): Number of channels in the TIFF file.
-        n_slices (int): Number of z-slices.
-
-    Returns:
-        numpy.ndarray: A hyperstack array [channel, slice, y, x].
-    """
-    return load_tiff_as_hyperstack(file_path, n_channels, n_slices, 1)
