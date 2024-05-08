@@ -12,12 +12,22 @@ def extend_stack(stack, margin):
     """
     return np.pad(stack, ((0, 0), (margin, margin), (margin, margin)), mode='reflect')
 
-def bin_image_2x2(image):
-    """
-    Reduces the size of an image by 2x2 binning, averaging groups of four pixels.
-    """
-    new_shape = (image.shape[0]//2, image.shape[1]//2)
-    return image.reshape(new_shape[0], 2, new_shape[1], 2).mean(axis=(1, 3))
+
+def bin_image(image, factor=2):
+    # Get the shape of the original image
+    height, width = image.shape
+
+    # Calculate the new shape after binning
+    new_height = height // factor
+    new_width = width // factor
+
+    # Reshape the image into non-overlapping 2x2 blocks
+    reshaped_image = image[:new_height * factor, :new_width * factor].reshape(new_height, factor, new_width, factor)
+
+    # Compute the mean along the last two axes to bin the image
+    binned_image = np.mean(reshaped_image, axis=(1, 3))
+
+    return binned_image
 
 def load_anatomy_stack(anatomy_stack_path, n_channels=2, channel_num=None):
     #TODO: use load_tiff from hyperstack extension
@@ -78,13 +88,9 @@ def split_double_planes(hyperstack_img):
     Returns:
     - numpy.ndarray: 3D array containing the reshaped planes in (slice,width,height) or(z,y,x) shape.
     """
-
-    n_planes = hyperstack_img.shape[0]
-    print(hyperstack_img.shape)
     doubling = 2
-
+    n_planes = hyperstack_img.shape[0]
     planes_stack = np.zeros((n_planes * doubling , hyperstack_img.shape[1], hyperstack_img.shape[2] // doubling, hyperstack_img.shape[3]))
-    print(planes_stack.shape)
     # Split and assign the planes based on the doubling factor
     for plane in range(n_planes):
         planes_stack[2 * plane, :,:,:] = hyperstack_img[plane,:, :hyperstack_img.shape[2] // doubling, :]
@@ -114,16 +120,15 @@ def load_tiff_as_hyperstack(file_path, n_slices=1, n_channels=1, doubling=False)
     Returns:
         numpy.ndarray: A hyperstack array with dimensions [channel, slice, time, y, x].
     """
-
+    # read tiff file
     images = tifffile.imread(file_path)
-    print(images.shape)
-
     n_frames = images.shape[0]
 
     # Reshape and reorder to (channels, slices, time, y, x)
     reshaped_images = images.reshape(n_channels,n_slices,n_frames//n_channels//n_slices,images.shape[1], images.shape[2],order="F")
-    print(reshaped_images.shape)
+
     hyperstack = np.squeeze(reshaped_images)
+    # Splitting doubled planes if set
     if doubling:
         return split_double_planes(hyperstack)
     else:
