@@ -50,6 +50,7 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+*.idea
 
 # Windows shortcuts
 *.lnk
@@ -64,3 +65,4 @@ notebooks/pancuronium_bromide_test.py
 #specific folders
 
 /docs/
+/data/

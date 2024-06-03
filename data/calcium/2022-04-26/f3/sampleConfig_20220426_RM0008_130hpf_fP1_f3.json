@@ -1,55 +1,70 @@
-{"info":{
-	"ID":"20220426_RM0008_130hpf_fP1_f3",
-	"pair":"P1",
-	"genotype":"aTubulin:GCamp6s x GAD1b:DsRed",
-	"phenotype":["both", "nacre"],
-	"dof":"21.04.2022",
-	"dpf":130,
-	"bodyLength":4,
-	"tof":"9:30",
-	"INFO":[]},
-
-"experiment":{
-	"paramsOdor":{
-		"odorList":["o1Ala", "o2Ser", "o3TDCA", "o4Ctrl", "o5GCA", "o6TCA", "o7Cad", "o8SA"],
-		"odorSequence":[1,2,3,4,6,7,5, 8, 5, 7,6,4,2,3,1,8,3,5,1,2,7,6,4,8],
-		"odorConc":[100, 100, 10, 0, 10, 10, 300, 0],
-		"nTrials":3,
-		"nFrames": 1500,
-		"pulseDelay":15,
-		"pulseDuration":5,
-		"trialInterval":60,
-		"missedTrials":[],
-		"bubbles":[],
-		"INFO":[]},
-	"params2P":{
-		"startTime":"19:29",
-		"endTime":"21:00",
-		"date":"2022.04.26",
-		"zoom":4.7,
-		"power":30,
-		"shutterDelay":40,
-		"sampFreq":30,
-		"nPlanes":4,
-		"doubling":1,
-		"anatoRange":150,
-		"refPlane":5,
-		"refFramesIgnored":40,
-		"refNFrames":300,
-		"refNPlanes":9,
-		"refSliceInterval":1.5,
-		"INFO":[]},
-	"paramsEM":{
-		"fixation":{
-			"protocol":"fBROPA"},
-		"embedding":{
-			"orientation":"anterior-up",
-			"material":[]},
-		"acquisition":{
-			"nSlice":[],
-			"xyzRes":[]},
-		"reconstruction":{
-			"method":[]}
-		}
-	}
+{
+    "experiment": {
+         "sample": {
+            "id": "20220426_RM0008_130hpf_fP1_f3",
+            "parents_id": "P1",
+            "genotype": "aTubulin:GCamp6s x GAD1b:DsRed",
+            "phenotype": "positive expression, nacre",
+            "dof": "21.04.2022-09:30",
+            "hpf": 130,
+            "body_length_mm": 4
+        },
+        "params_odor": {
+            "odor_list": [
+                "Ala",
+                "Ser",
+                "Ctrl",
+                "TCA",
+                "GCA",
+                "TDCA",
+                "Cad",
+                "SA"
+            ],
+            "odor_sequence":  [
+                "Ala", "Ser", "Ctrl", "TCA", "GCA", "TDCA", "Cad", "SA",
+                "Cad", "TDCA", "GCA", "TCA", "Ser", "Ctrl", "Ala", "SA",
+                "Ctrl", "Cad", "Ala", "Ser", "TDCA", "GCA", "TCA", "SA"
+            ],
+            "odor_concentration_uM":[
+                {"name": "Ala", "concentration_mM": 100},
+                {"name": "Ser", "concentration_mM": 100},
+                {"name": "Ctrl", "concentration_mM": 100},
+                {"name": "TCA", "concentration_mM": 10},
+                {"name": "GCA", "concentration_mM": 10},
+                {"name": "TDCA", "concentration_mM": 10},
+                {"name": "Cad", "concentration_mM": 300},
+                {"name": "SA", "concentration_mM": 0}
+            ],
+            "n_trials": 3,
+            "n_frames": 1500,
+            "pulse_delay_s": 15,
+            "pulse_duration_s": 5,
+            "trial_interval_s": 60,
+            "missed_trials": [],
+            "events": []
+        },
+        "params_lm": {
+            "start_time": "2022-04-26-19:29",
+            "end_time": "2022-04-26-21:00",
+            "date": "",
+            "zoom_x": 4.7,
+            "power_percentage": 30,
+            "shutter_delay_frames": 40,
+            "sampling_hz": 30,
+            "n_planes": 4,
+            "doubling": true,
+            "lm_stack_range": 150,
+            "ref_plane": 5,
+            "ref_frames_ignored": 40,
+            "ref_n_frames": 300,
+            "ref_n_slices": 9,
+            "ref_slice_interval_um": 1.5
+        },
+        "params_em": {
+            "fixation_protocol": "fBROPA",
+            "embedding_protocol": "anterior-up, silver",
+            "acquisition_completed": true,
+            "acquisition_resolution_zyx" : [25,9,9]
+        }
+    }
 }
