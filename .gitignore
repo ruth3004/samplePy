@@ -5,6 +5,7 @@
 #hidden folders
 /.idea
 /.ipynb_checkpoints
+/.venv
 
 /**/*/.ipynb_checkpoints
 
@@ -50,7 +51,7 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
-*.idea
+
 
 # Windows shortcuts
 *.lnk
