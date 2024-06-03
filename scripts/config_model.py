@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import List, Optional, Tuple
 from datetime import datetime
 
@@ -20,7 +20,6 @@ class ParamsOdor(BaseModel):
     odor_sequence: List[str]
     odor_concentration_uM: List[OdorConcentration]
     n_trials: int
-    n_frames: int
     pulse_delay_s: int
     pulse_duration_s: int
     trial_interval_s: int
@@ -28,12 +27,14 @@ class ParamsOdor(BaseModel):
     events: List[Tuple[str, datetime]] = []
 
 class ParamsLM(BaseModel):
-    start_time: datetime  # Including both date and time in the format "yyyy-mm-dd-hh:mm"
-    end_time: datetime    # Including both date and time in the format "yyyy-mm-dd-hh:mm"
+    start_time: datetime  # Including both date and time in the format "yyyy-mm-ddTHH:MM:SS"
+    end_time: datetime    # Including both date and time in the format "yyyy-mm-ddTHH:MM:SS"
+    date: Optional[datetime]
     zoom_x: Optional[float]
     power_percentage: Optional[float]
     shutter_delay_frames: Optional[int]
     sampling_hz: int
+    n_frames: int
     n_planes: int
     doubling: bool
     lm_stack_range: int
@@ -54,3 +55,11 @@ class Experiment(BaseModel):
     params_odor: Optional[ParamsOdor]
     params_lm: Optional[ParamsLM]
     params_em: Optional[ParamsEM]
+
+    class Config:
+        json_encoders = {
+            datetime: lambda v: v.isoformat()
+        }
+        extra = 'allow'
+
+

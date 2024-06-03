@@ -101,13 +101,29 @@ def split_double_planes(hyperstack_img):
     return planes_stack
 
 
-def load_images_to_stack(path, ending="*.tif"):
+def load_images_to_stack(path, beginning="", ending="*.tif"):
     """
     Loads all images from a directory into a single stack.
-    """
-    files = sorted(Path(path).glob(ending), key=lambda x: int(x.stem.split('_')[-1]))
-    return np.array([np.array(Image.open(file)) for file in files])
 
+    Parameters:
+        path (str): The directory path where the images are stored.
+        beginning (str): The prefix that the files should start with.
+        ending (str): The suffix pattern for the files (default is "*.tif").
+
+    Returns:
+        np.ndarray: A stack of images loaded from the directory.
+    """
+    # Get all files matching the ending pattern
+    files = sorted(Path(path).glob(ending))
+
+    # Filter files that start with the specified beginning
+    filtered_files = [file for file in files if file.stem.startswith(beginning)]
+
+    # Sort files by their name
+    filtered_files.sort()
+
+    # Load images into a stack
+    return np.array([np.array(tifffile.imread(file)) for file in filtered_files])
 
 
 def load_tiff_as_hyperstack(file_path, n_slices=1, n_channels=1, doubling=False):
