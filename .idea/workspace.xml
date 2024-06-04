@@ -5,29 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66d86078-e06b-4e01-8448-8c72b5e5da0b" name="Changes" comment="rough folder structure of samplePy with motion correction">
-      <change afterPath="$PROJECT_DIR$/data/calcium/2022-04-26/f3/sampleConfig_20220426_RM0008_130hpf_fP1_f3.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/doctrees/index.doctree" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/.buildinfo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/_sources/index.rst.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/alabaster.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/basic.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/custom.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/doctools.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/documentation_options.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/language_data.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/pygments.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/searchtools.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/_static/sphinx_highlight.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/genindex.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/objects.inv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/search.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/build/html/searchindex.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/make.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/source/conf.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/source/index.rst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/samplePy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/samplePy.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/calcium/2022-04-26/f3/sampleConfig_20220426_RM0008_130hpf_fP1_f3.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/calcium/2022-04-26/f3/sampleConfig_20220426_RM0008_130hpf_fP1_f3.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sample_db.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/sample_db.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/02_segmentation_lm_trials.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/02_segmentation_lm_trials.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/04_deconvolution_lm_traces.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/04_deconvolution_lm_traces.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/cell_identification_from_channel.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/cell_identification_from_channel.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,8 +23,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Jupyter Notebook" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -61,15 +47,16 @@
     "Python tests.Python tests in test_sample.py.executor": "Run",
     "Python tests.Python tests in tests.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging main",
-    "last_opened_file_path": "C:/Users/montruth/PycharmProjects/samplePy/data/calcium",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/montruth/PycharmProjects/samplePy/data/calcium/2022-04-26/f3/sampleConfig_.json",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "terminal",
     "settings.editor.splitter.proportion": "0.29735234",
+    "two.files.diff.last.used.file": "D:/montruth/PycharmProjects/samplePy/data/calcium/2022-04-26/f3/sampleConfig_.json",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -82,11 +69,11 @@
       <recent name="C:\Users\montruth\PycharmProjects\samplePy\data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\montruth\PycharmProjects\samplePy\scripts" />
+      <recent name="D:\montruth\PycharmProjects\samplePy\data\calcium\2022-04-26\f3\raw\anatomy" />
+      <recent name="D:\montruth\PycharmProjects\samplePy" />
       <recent name="C:\Users\montruth\PycharmProjects\samplePy\src" />
       <recent name="C:\Users\montruth\PycharmProjects\samplePy\src\data_management" />
-      <recent name="C:\Users\montruth\PycharmProjects\samplePy\src\config" />
-      <recent name="D:\montruth" />
-      <recent name="C:\Users\montruth\PycharmProjects\samplePy\data\calcium" />
     </key>
   </component>
   <component name="RunManager" selected="Python tests.Python tests in test_sample.py">
@@ -128,8 +115,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests in test_sample.py" />
         <item itemvalue="Python tests.Python tests in tests" />
+        <item itemvalue="Python tests.Python tests in test_sample.py" />
       </list>
     </recent_temporary>
   </component>
@@ -153,6 +140,15 @@
       <workItem from="1713965180378" duration="3278000" />
       <workItem from="1713968482139" duration="3814000" />
       <workItem from="1713972740685" duration="49826000" />
+      <workItem from="1715684003556" duration="406000" />
+      <workItem from="1715684475656" duration="498000" />
+      <workItem from="1715685068138" duration="50382000" />
+      <workItem from="1715873930137" duration="6550000" />
+      <workItem from="1715944294334" duration="3768000" />
+      <workItem from="1715952705107" duration="5526000" />
+      <workItem from="1715961127408" duration="139000" />
+      <workItem from="1715961887774" duration="3508000" />
+      <workItem from="1716288920975" duration="162126000" />
     </task>
     <servers />
   </component>
@@ -173,6 +169,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="rough folder structure of samplePy with motion correction" />
     <option name="LAST_COMMIT_MESSAGE" value="rough folder structure of samplePy with motion correction" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>notebook://D:/montruth/PycharmProjects/samplePy/notebooks/02_registration_lm_trials_.ipynb</url>
+          <line>2</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/samplePy$.coverage" NAME=" Coverage Results" MODIFIED="1713968908789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />

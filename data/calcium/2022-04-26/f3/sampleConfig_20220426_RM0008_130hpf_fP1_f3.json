@@ -1,6 +1,6 @@
 {
     "experiment": {
-         "sample": {
+        "sample": {
             "id": "20220426_RM0008_130hpf_fP1_f3",
             "parents_id": "P1",
             "genotype": "aTubulin:GCamp6s x GAD1b:DsRed",
@@ -20,23 +20,68 @@
                 "Cad",
                 "SA"
             ],
-            "odor_sequence":  [
-                "Ala", "Ser", "Ctrl", "TCA", "GCA", "TDCA", "Cad", "SA",
-                "Cad", "TDCA", "GCA", "TCA", "Ser", "Ctrl", "Ala", "SA",
-                "Ctrl", "Cad", "Ala", "Ser", "TDCA", "GCA", "TCA", "SA"
+            "odor_sequence": [
+                "Ala",
+                "Ser",
+                "Ctrl",
+                "TCA",
+                "GCA",
+                "TDCA",
+                "Cad",
+                "SA",
+                "Cad",
+                "TDCA",
+                "GCA",
+                "TCA",
+                "Ser",
+                "Ctrl",
+                "Ala",
+                "SA",
+                "Ctrl",
+                "Cad",
+                "Ala",
+                "Ser",
+                "TDCA",
+                "GCA",
+                "TCA",
+                "SA"
             ],
-            "odor_concentration_uM":[
-                {"name": "Ala", "concentration_mM": 100},
-                {"name": "Ser", "concentration_mM": 100},
-                {"name": "Ctrl", "concentration_mM": 100},
-                {"name": "TCA", "concentration_mM": 10},
-                {"name": "GCA", "concentration_mM": 10},
-                {"name": "TDCA", "concentration_mM": 10},
-                {"name": "Cad", "concentration_mM": 300},
-                {"name": "SA", "concentration_mM": 0}
+            "odor_concentration_uM": [
+                {
+                    "name": "Ala",
+                    "concentration_mM": 100.0
+                },
+                {
+                    "name": "Ser",
+                    "concentration_mM": 100.0
+                },
+                {
+                    "name": "Ctrl",
+                    "concentration_mM": 100.0
+                },
+                {
+                    "name": "TCA",
+                    "concentration_mM": 10.0
+                },
+                {
+                    "name": "GCA",
+                    "concentration_mM": 10.0
+                },
+                {
+                    "name": "TDCA",
+                    "concentration_mM": 10.0
+                },
+                {
+                    "name": "Cad",
+                    "concentration_mM": 300.0
+                },
+                {
+                    "name": "SA",
+                    "concentration_mM": 0.0
+                }
             ],
             "n_trials": 3,
-            "n_frames": 1500,
+
             "pulse_delay_s": 15,
             "pulse_duration_s": 5,
             "trial_interval_s": 60,
@@ -44,14 +89,15 @@
             "events": []
         },
         "params_lm": {
-            "start_time": "2022-04-26-19:29",
-            "end_time": "2022-04-26-21:00",
-            "date": "",
+            "start_time": "2022-04-26T19:29:00",
+            "end_time": "2022-04-26T21:00:00",
+            "date": "2022-04-26T00:00:00",
             "zoom_x": 4.7,
-            "power_percentage": 30,
+            "power_percentage": 30.0,
             "shutter_delay_frames": 40,
             "sampling_hz": 30,
             "n_planes": 4,
+            "n_frames": 1500,
             "doubling": true,
             "lm_stack_range": 150,
             "ref_plane": 5,
@@ -64,7 +110,19 @@
             "fixation_protocol": "fBROPA",
             "embedding_protocol": "anterior-up, silver",
             "acquisition_completed": true,
-            "acquisition_resolution_zyx" : [25,9,9]
+            "acquisition_resolution_zyx": [
+                25,
+                9,
+                9
+            ]
+        },
+        "paths": {
+            "config_path": "D:\\montruth\\PycharmProjects\\samplePy\\data\\calcium\\2022-04-26\\f3\\sampleConfig_20220426_RM0008_130hpf_fP1_f3.json",
+            "exp_path": "D:\\montruth\\PycharmProjects\\samplePy\\data\\calcium\\2022-04-26\\f3",
+            "raw_path": "D:\\montruth\\PycharmProjects\\samplePy\\data\\calcium\\2022-04-26\\f3\\raw",
+            "anatomy_path": "D:\\montruth\\PycharmProjects\\samplePy\\data\\calcium\\2022-04-26\\f3\\anatomy",
+            "em_path": null,
+
         }
     }
 }
