@@ -1,27 +1,13 @@
 import csv
 import json
-from typing import Dict, Optional
-from pydantic import BaseModel
+from typing import Dict, Optional, Any
 from scripts.config_model import Sample, Experiment
 
 class SampleDB:
     def __init__(self):
         self.samples: Dict[str, Dict[str, Optional[str]]] = {}
-
-    def add_or_update_sample(self, sample: Sample, raw_path: str, anatomy_path: str, config_path: str, em_path: Optional[str] = None, *, update: bool = False):
-        if sample.id in self.samples:
-            if update:
-                print(f"Updating existing sample with ID {sample.id}")
-        else:
-            print(f"Adding new sample with ID {sample.id}")
-
-        self.samples[sample.id] = {
-            "sample": sample,
-            "raw_path": raw_path,
-            "anatomy_path": anatomy_path,
-            "em_path": em_path,
-            "config_path": config_path
-        }
+        # Define the initial set of columns
+        self.columns = ['sample_id', 'root_path', 'config_path', 'trials_path', 'anatomy_path', 'em_path', 'update']
 
     def get_sample(self, sample_id: str) -> Optional[Experiment]:
         sample_data = self.samples.get(sample_id)
@@ -35,24 +21,22 @@ class SampleDB:
 
     def save(self, file_path: str):
         with open(file_path, 'w', newline='') as csvfile:
-            fieldnames = ['sample_id', 'parents_id', 'genotype', 'phenotype', 'dof', 'hpf', 'body_length_mm',
-                          'raw_path', 'anatomy_path', 'em_path', 'config_path']
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer = csv.DictWriter(csvfile, fieldnames=self.columns)
             writer.writeheader()
             for sample_id, sample_data in self.samples.items():
                 row = {
                     'sample_id': sample_data["sample"].id,
-                    'parents_id': sample_data["sample"].parents_id,
-                    'genotype': sample_data["sample"].genotype,
-                    'phenotype': sample_data["sample"].phenotype,
-                    'dof': sample_data["sample"].dof,
-                    'hpf': sample_data["sample"].hpf,
-                    'body_length_mm': sample_data["sample"].body_length_mm,
-                    'raw_path': sample_data["raw_path"],
+                    'root_path': sample_data["root_path"],
+                    'config_path': sample_data["config_path"],
+                    'trials_path': sample_data["trials_path"],
                     'anatomy_path': sample_data["anatomy_path"],
                     'em_path': sample_data["em_path"],
-                    'config_path': sample_data["config_path"]
+                    'update': sample_data["update"]
                 }
+                # Add any extra columns
+                for col in self.columns:
+                    if col not in row:
+                        row[col] = sample_data.get(col, None)
                 writer.writerow(row)
 
     def load(self, file_path: str):
@@ -61,36 +45,64 @@ class SampleDB:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
                     sample = Sample(
-                        id=row['sample_id'],
-                        parents_id=row['parents_id'],
-                        genotype=row['genotype'],
-                        phenotype=row['phenotype'],
-                        dof=row['dof'],
-                        hpf=int(row['hpf']),
-                        body_length_mm=int(row['body_length_mm'])
+                        id=row.get('sample_id'),
+                        parents_id=row.get('parents_id'),
+                        genotype=row.get('genotype'),
+                        phenotype=row.get('phenotype'),
+                        dof=row.get('dof', ''),
+                        hpf=int(row.get('hpf', 0)),
+                        body_length_mm=int(row.get('body_length_mm', 0))
                     )
                     self.samples[sample.id] = {
                         "sample": sample,
-                        "raw_path": row['raw_path'],
-                        "anatomy_path": row['anatomy_path'],
-                        "em_path": row['em_path'] if row['em_path'] else None,
-                        "config_path": row['config_path']
+                        "root_path": row.get('root_path', ''),
+                        "config_path": row.get('config_path', ''),
+                        "trials_path": row.get('trials_path', ''),
+                        "anatomy_path": row.get('anatomy_path', ''),
+                        "em_path": row.get('em_path', None),
+                        "update": row.get('update', '')
                     }
+                    # Load any extra columns
+                    for col in row:
+                        if col not in self.samples[sample.id]:
+                            self.samples[sample.id][col] = row[col]
+                    # Update columns list
+                    if set(self.columns) != set(row.keys()):
+                        self.columns = list(row.keys())
         except FileNotFoundError:
             print(f"File {file_path} not found. Initializing empty database.")
             self.save(file_path)  # Create a new CSV file with headers
         except Exception as e:
             print(f"Error loading sample database: {e}")
 
+    def add_column(self, column_name: str, default_value: Any = None):
+        if column_name not in self.columns:
+            self.columns.append(column_name)
+            for sample_id in self.samples:
+                self.samples[sample_id][column_name] = default_value
+
+    def update_column(self, column_name: str, update_function):
+        if column_name in self.columns:
+            for sample_id in self.samples:
+                self.samples[sample_id][column_name] = update_function(self.samples[sample_id])
+
+    def delete_column(self, column_name: str):
+        if column_name in self.columns:
+            self.columns.remove(column_name)
+            for sample_id in self.samples:
+                if column_name in self.samples[sample_id]:
+                    del self.samples[sample_id][column_name]
+
     def get_sample_json(self, sample_id: str) -> Optional[str]:
         sample_data = self.samples.get(sample_id)
         if sample_data:
             sample = sample_data["sample"]
             segment_paths = {
-                "raw_path": sample_data["raw_path"],
+                "root_path": sample_data["root_path"],
+                "config_path": sample_data["config_path"],
+                "trials_path": sample_data["trials_path"],
                 "anatomy_path": sample_data["anatomy_path"],
-                "em_path": sample_data["em_path"],
-                "config_path": sample_data["config_path"]
+                "em_path": sample_data["em_path"]
             }
             config_dict = sample.dict()
             config_dict['segment_paths'] = segment_paths
