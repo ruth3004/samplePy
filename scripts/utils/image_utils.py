@@ -61,42 +61,27 @@ def load_anatomy_stack(anatomy_stack_path, n_channels=2, channel_num=None):
             else:
                 return images
 
-def load_planes_from_folder(anatomy_dir, n_planes, doubling=True):
-    """
-    Loads image planes from a directory, considering doubling if specified.
-    """
-    planes = []
-    anatomy_dir = Path(anatomy_dir)
-    for i in range(n_planes):
-        path = anatomy_dir / f"plane{i + 1:02d}.tif"
-        with Image.open(path) as img:
-            plane = np.array(img)
-            if doubling:
-                plane = np.vstack([plane[:plane.shape[0] // 2], plane[plane.shape[0] // 2:]])
-            planes.append(plane)
-    return np.stack(planes)
+
 
 
 def split_double_planes(hyperstack_img):
     """
-    Load planes from a (hyper)stack TIF file and reshape based on input parameters.
+    Split planes in the hyperstack based on doubling factor.
 
     Parameters:
-    - tif_path (str): Path to the TIF file.
-    - n_planes (int): Total number of planes.
-    - doubling (int): Doubling factor.
-    - ignore_frames (int, optional): Number of frames to be ignored at the start.
+    - hyperstack_img (numpy.ndarray): 4D array of shape (n_planes, time, width, height).
 
     Returns:
-    - numpy.ndarray: 3D array containing the reshaped planes in (slice,width,height) or(z,y,x) shape.
+    - numpy.ndarray: 4D array with doubled planes (2 * n_planes, time, width // 2, height).
     """
-    doubling = 2
     n_planes = hyperstack_img.shape[0]
-    planes_stack = np.zeros((n_planes * doubling , hyperstack_img.shape[1], hyperstack_img.shape[2] // doubling, hyperstack_img.shape[3]))
-    # Split and assign the planes based on the doubling factor
-    for plane in range(n_planes):
-        planes_stack[2 * plane, :,:,:] = hyperstack_img[plane,:, :hyperstack_img.shape[2] // doubling, :]
-        planes_stack[2 * plane + 1,:, :, :] = hyperstack_img[plane,:, hyperstack_img.shape[2] // doubling:, :]
+    doubling = 2
+    _, t, w, h = hyperstack_img.shape
+
+    # Efficient slicing
+    planes_stack = np.zeros((n_planes * doubling, t, w // doubling, h))
+    planes_stack[0::2] = hyperstack_img[:, :, :w // doubling, :]
+    planes_stack[1::2] = hyperstack_img[:, :, w // doubling:, :]
 
     return planes_stack
 
@@ -146,6 +131,7 @@ def load_tiff_as_hyperstack(file_path, n_slices=1, n_channels=1, doubling=False)
     reshaped_images = images.reshape(n_channels,n_slices,n_frames//n_channels//n_slices,images.shape[1], images.shape[2],order="F")
 
     hyperstack = np.squeeze(reshaped_images)
+    print(f"{file_path} loaded.")
     # Splitting doubled planes if set
     if doubling:
         return split_double_planes(hyperstack)
@@ -431,3 +417,9 @@ def slice_into_uniform_tiles(image, nx, ny, plot=True):
         plt.show()
 
     return reshaped_tiles, (M, N), (adjusted_height, adjusted_width)
+
+def save_array_as_hyperstack_tiff(path, array):
+    #array_reshaped = array.transpose(1, 0, 2, 3).astype(np.float32)
+    array_reshaped = array.astype(np.float32)
+    # Save as TIFF with tifffile
+    tifffile.imwrite(path, array_reshaped, imagej=True)

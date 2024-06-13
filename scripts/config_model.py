@@ -1,6 +1,6 @@
 import json
 from pydantic import BaseModel, Field
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Dict, Any
 from datetime import datetime
 
 class Sample(BaseModel):
@@ -45,6 +45,18 @@ class ParamsLM(BaseModel):
     ref_n_slices: Optional[int]
     ref_slice_interval_um: float
 
+    class Config:
+        extra = 'allow'
+        json_encoders = {
+            datetime: lambda v: v.isoformat()
+        }
+
+    def __getitem__(self, item):
+        return getattr(self, item)
+
+    def __setitem__(self, key, value):
+        setattr(self, key, value)
+
 class ParamsEM(BaseModel):
     fixation_protocol: str
     embedding_protocol: str
@@ -84,16 +96,14 @@ def save_experiment_config(config: Experiment, json_file_path: str):
     with open(json_file_path, 'w') as f:
         json.dump({"experiment": config.dict()}, f, indent=4, cls=DateTimeEncoder)
 
-def update_experiment_config(config: Experiment, changes: dict) -> Experiment:
+def update_experiment_config(config: Experiment, changes: Dict[str, Any]) -> Experiment:
     config_dict = config.dict()
     for key, value in changes.items():
-        if key in config_dict:
-            config_dict[key] = value
+        if isinstance(value, dict) and key in config_dict:
+            # Merge dictionaries if the key exists
+            config_dict[key].update(value)
         else:
-            # Handle nested dictionaries, assuming one level of nesting for simplicity
-            for nested_key in config_dict.keys():
-                if isinstance(config_dict[nested_key], dict) and key in config_dict[nested_key]:
-                    config_dict[nested_key][key] = value
+            config_dict[key] = value
     return Experiment(**config_dict)
 
 class DateTimeEncoder(json.JSONEncoder):
@@ -101,3 +111,14 @@ class DateTimeEncoder(json.JSONEncoder):
         if isinstance(obj, datetime):
             return obj.isoformat()
         return super(DateTimeEncoder, self).default(obj)
+
+
+# Function to print tree of Pydantic model
+def tree(model: Any, indent: int = 0):
+    for field_name, field_type in model.__annotations__.items():
+        print(' ' * indent + f'{field_name}: {field_type}')
+        field_value = getattr(model, field_name, None)
+        if isinstance(field_value, BaseModel):
+            tree(field_value, indent + 4)
+        elif isinstance(field_value, list) and len(field_value) > 0 and isinstance(field_value[0], BaseModel):
+            tree(field_value[0], indent + 4)
