@@ -1,7 +1,7 @@
 import json
-from pydantic import BaseModel, Field
-from typing import List, Optional, Tuple
-from datetime import datetime
+from pydantic import BaseModel
+from typing import List, Optional, Tuple, Dict, Any
+from datetime import datetime, date
 
 class Sample(BaseModel):
     id: str
@@ -51,19 +51,11 @@ class ParamsEM(BaseModel):
     acquisition_completed: bool
     acquisition_resolution_zyx: Tuple[int, int, int]
 
-class Paths(BaseModel):
-    root_path: str = ''
-    config_path: str = ''
-    trials_path: str = ''
-    anatomy_path: str = ''
-    em_path: Optional[str] = None
-
 class Experiment(BaseModel):
     sample: Sample
     params_odor: Optional[ParamsOdor]
     params_lm: Optional[ParamsLM]
     params_em: Optional[ParamsEM]
-    paths: Paths = Field(default_factory=Paths)
 
     class Config:
         json_encoders = {
@@ -71,33 +63,32 @@ class Experiment(BaseModel):
         }
         extra = 'allow'
 
+class DateTimeEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, (datetime, date)):
+            return obj.isoformat()
+        return super(DateTimeEncoder, self).default(obj)
+
 def load_experiment_config(json_file_path: str) -> Experiment:
     with open(json_file_path, 'r') as f:
         data = json.load(f)
-        if 'experiment' in data:
-            experiment_data = data['experiment']
-        else:
-            experiment_data = data
-        return Experiment(**experiment_data)
+    return Experiment(**data['experiment'])
 
+# Function to update any part of the experiment configuration
+def update_experiment_config(config: Experiment, updates: Dict[str, Any]) -> Experiment:
+    config_dict = config.dict()
+    for key, value in updates.items():
+        # Update nested dictionaries if needed
+        if isinstance(value, dict) and key in config_dict:
+            config_dict[key].update(value)
+        else:
+            config_dict[key] = value
+    updated_config = Experiment(**config_dict)
+    return updated_config
+
+
+# Function to save the updated configuration back to the JSON file
 def save_experiment_config(config: Experiment, json_file_path: str):
     with open(json_file_path, 'w') as f:
         json.dump({"experiment": config.dict()}, f, indent=4, cls=DateTimeEncoder)
 
-def update_experiment_config(config: Experiment, changes: dict) -> Experiment:
-    config_dict = config.dict()
-    for key, value in changes.items():
-        if key in config_dict:
-            config_dict[key] = value
-        else:
-            # Handle nested dictionaries, assuming one level of nesting for simplicity
-            for nested_key in config_dict.keys():
-                if isinstance(config_dict[nested_key], dict) and key in config_dict[nested_key]:
-                    config_dict[nested_key][key] = value
-    return Experiment(**config_dict)
-
-class DateTimeEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, datetime):
-            return obj.isoformat()
-        return super(DateTimeEncoder, self).default(obj)

@@ -1,6 +1,7 @@
 import csv
 import json
 from typing import Dict, Optional, Any
+from pydantic import BaseModel
 from scripts.config_model import Sample, Experiment
 
 class SampleDB:

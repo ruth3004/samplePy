@@ -1,2 +1,0 @@
-sample_id,parents_id,genotype,phenotype,dof,hpf,body_length_mm,raw_path,anatomy_path,em_path,config_path
-20220426_RM0008_130hpf_fP1_f3,P1,aTubulin:GCamp6s x GAD1b:DsRed,"positive expression, nacre",21.04.2022-09:30,130,4,D:\montruth\PycharmProjects\samplePy\data\calcium\2022-04-26\f3\raw,D:\montruth\PycharmProjects\samplePy\data\calcium\2022-04-26\f3\anatomy,,D:\montruth\PycharmProjects\samplePy\data\calcium\2022-04-26\f3\sampleConfig_20220426_RM0008_130hpf_fP1_f3.json

@@ -1,15 +1,13 @@
+## TODO: OBSOLETE DELETE
+
 import json
-from datetime import datetime,date
+
 from scripts.config_model import Experiment
 import xarray as xr
 import numpy as np
 
 
-class DateTimeEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, (datetime, date)):
-            return obj.isoformat()
-        return super(DateTimeEncoder, self).default(obj)
+
 
 def load_experiment_config(json_file_path: str) -> Experiment:
     with open(json_file_path, 'r') as f:
