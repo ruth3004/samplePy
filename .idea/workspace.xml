@@ -5,20 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66d86078-e06b-4e01-8448-8c72b5e5da0b" name="Changes" comment="rough folder structure of samplePy with motion correction">
-      <change afterPath="$PROJECT_DIR$/scripts/utils/roi_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notebooks/00_load_experiment.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/00_load_experiment.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/01_preprocessing_lm_trials.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/01_alignment_lm_trials.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/02_segmentation_lm_trials.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/02_segmentation_lm_trials.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/03_extraction_lm_traces.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/03_extraction_lm_traces.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/04_calculation_df_traces.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/04_calculation_df_traces.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/11_cell_identification_from_channel.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/11_cell_identification_from_channel.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/20_correlation_analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/20_correlation_analysis.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/01_alignment_lm_trials.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/01_alignment_lm_trials.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/config_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/config_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/experiment_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/experiment_loader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/napari-animation-scripts.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/napari-animation-scripts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/roi_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/utils/traces_utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/sample_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sample_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/utils/image_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/utils/image_utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,6 +147,7 @@
       <workItem from="1715961887774" duration="3508000" />
       <workItem from="1716288920975" duration="176892000" />
       <workItem from="1717513697186" duration="59900000" />
+      <workItem from="1718280170478" duration="11807000" />
     </task>
     <servers />
   </component>

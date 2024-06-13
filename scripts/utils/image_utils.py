@@ -420,6 +420,6 @@ def slice_into_uniform_tiles(image, nx, ny, plot=True):
 
 def save_array_as_hyperstack_tiff(path, array):
     #array_reshaped = array.transpose(1, 0, 2, 3).astype(np.float32)
-    array_reshaped = array.astype(np.float32)
+    array = array.astype(np.float32)
     # Save as TIFF with tifffile
-    tifffile.imwrite(path, array_reshaped, imagej=True)
+    tifffile.imwrite(path, array, imagej=True)

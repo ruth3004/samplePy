@@ -59,7 +59,6 @@ class SampleDB:
                         "root_path": row.get('root_path', ''),
                         "config_path": row.get('config_path', ''),
                         "trials_path": row.get('trials_path', ''),
-                        "anatomy_path": row.get('anatomy_path', ''),
                         "em_path": row.get('em_path', None),
                         "update": row.get('update', '')
                     }
@@ -102,7 +101,6 @@ class SampleDB:
                 "root_path": sample_data["root_path"],
                 "config_path": sample_data["config_path"],
                 "trials_path": sample_data["trials_path"],
-                "anatomy_path": sample_data["anatomy_path"],
                 "em_path": sample_data["em_path"]
             }
             config_dict = sample.dict()
