@@ -1,7 +1,7 @@
 import json
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional, Tuple, Dict, Any
-from datetime import datetime, date
+from datetime import datetime
 
 class Sample(BaseModel):
     id: str
@@ -45,17 +45,37 @@ class ParamsLM(BaseModel):
     ref_n_slices: Optional[int]
     ref_slice_interval_um: float
 
+    class Config:
+        extra = 'allow'
+        json_encoders = {
+            datetime: lambda v: v.isoformat()
+        }
+
+    def __getitem__(self, item):
+        return getattr(self, item)
+
+    def __setitem__(self, key, value):
+        setattr(self, key, value)
+
 class ParamsEM(BaseModel):
     fixation_protocol: str
     embedding_protocol: str
     acquisition_completed: bool
     acquisition_resolution_zyx: Tuple[int, int, int]
 
+class Paths(BaseModel):
+    root_path: str = ''
+    config_path: str = ''
+    trials_path: str = ''
+    anatomy_path: str = ''
+    em_path: Optional[str] = None
+
 class Experiment(BaseModel):
     sample: Sample
     params_odor: Optional[ParamsOdor]
     params_lm: Optional[ParamsLM]
     params_em: Optional[ParamsEM]
+    paths: Paths = Field(default_factory=Paths)
 
     class Config:
         json_encoders = {
@@ -63,32 +83,42 @@ class Experiment(BaseModel):
         }
         extra = 'allow'
 
-class DateTimeEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, (datetime, date)):
-            return obj.isoformat()
-        return super(DateTimeEncoder, self).default(obj)
-
 def load_experiment_config(json_file_path: str) -> Experiment:
     with open(json_file_path, 'r') as f:
         data = json.load(f)
-    return Experiment(**data['experiment'])
-
-# Function to update any part of the experiment configuration
-def update_experiment_config(config: Experiment, updates: Dict[str, Any]) -> Experiment:
-    config_dict = config.dict()
-    for key, value in updates.items():
-        # Update nested dictionaries if needed
-        if isinstance(value, dict) and key in config_dict:
-            config_dict[key].update(value)
+        if 'experiment' in data:
+            experiment_data = data['experiment']
         else:
-            config_dict[key] = value
-    updated_config = Experiment(**config_dict)
-    return updated_config
+            experiment_data = data
+        return Experiment(**experiment_data)
 
-
-# Function to save the updated configuration back to the JSON file
 def save_experiment_config(config: Experiment, json_file_path: str):
     with open(json_file_path, 'w') as f:
         json.dump({"experiment": config.dict()}, f, indent=4, cls=DateTimeEncoder)
 
+def update_experiment_config(config: Experiment, changes: Dict[str, Any]) -> Experiment:
+    config_dict = config.dict()
+    for key, value in changes.items():
+        if isinstance(value, dict) and key in config_dict:
+            # Merge dictionaries if the key exists
+            config_dict[key].update(value)
+        else:
+            config_dict[key] = value
+    return Experiment(**config_dict)
+
+class DateTimeEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+        return super(DateTimeEncoder, self).default(obj)
+
+
+# Function to print tree of Pydantic model
+def tree(model: Any, indent: int = 0):
+    for field_name, field_type in model.__annotations__.items():
+        print(' ' * indent + f'{field_name}: {field_type}')
+        field_value = getattr(model, field_name, None)
+        if isinstance(field_value, BaseModel):
+            tree(field_value, indent + 4)
+        elif isinstance(field_value, list) and len(field_value) > 0 and isinstance(field_value[0], BaseModel):
+            tree(field_value[0], indent + 4)
