@@ -79,7 +79,7 @@ def split_double_planes(hyperstack_img):
     _, t, w, h = hyperstack_img.shape
 
     # Efficient slicing
-    planes_stack = np.zeros((n_planes * doubling, t, w // doubling, h))
+    planes_stack = np.zeros((n_planes * doubling, t, w // doubling, h), dtype=np.float32)
     planes_stack[0::2] = hyperstack_img[:, :, :w // doubling, :]
     planes_stack[1::2] = hyperstack_img[:, :, w // doubling:, :]
 
@@ -139,7 +139,7 @@ def load_tiff_as_hyperstack(file_path, n_slices=1, n_channels=1, doubling=False)
         return hyperstack
 
 
-def find_plane_in_stack(plane, stack, reshape=True, plot_all_correlations=False, z_range=None):
+def find_plane_in_stack(plane, stack, plot_all_correlations=False, z_range=None):
     """
     Correlate a given plane with slices in a 3D stack.
     If an angle is provided, the stack is rotated before correlation along the plane given.
@@ -288,14 +288,14 @@ def plot_image_correlation(tiles, stack, best_plane_matrix, all_correlations_mat
     for row in range(num_rows):
         for col in range(num_cols):
             ax = fig.add_subplot(gs_sub1[3 * row, col])
-            ax.imshow(tiles[row, col])
+            ax.imshow(tiles[row, col], cmap="gray")
             ax.set_title(f'Image ({row},{col})')
             ax.set_xticklabels([])
 
             ax = fig.add_subplot(gs_sub1[3 * row + 1, col])
             cropped_slice = crop_stack_to_matched_plane(stack, tiles[row, col],
                                                         tuple(best_plane_matrix[row, col].astype(int)))
-            ax.imshow(cropped_slice)
+            ax.imshow(cropped_slice, cmap="gray")
             ax.set_title(f'Slice {best_plane_matrix[row, col][0] - stack.shape[0] // 2}')
             ax.set_xticklabels([])
 
@@ -411,8 +411,8 @@ def slice_into_uniform_tiles(image, nx, ny, plot=True):
         count = 0
         for i in range(ny):
             for j in range(nx):
-                axs[i, j].imshow(reshaped_tiles[i, j])
-                # axs[i,j].imshow(reshaped_tiles[i,j].astype(np.uint16))
+                axs[i, j].imshow(reshaped_tiles[i, j],cmap='gray')
+                #axs[i,j].imshow(reshaped_tiles[i,j].astype(np.uint16))
                 count += 1
         plt.show()
 

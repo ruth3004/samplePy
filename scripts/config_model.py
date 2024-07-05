@@ -129,6 +129,7 @@ class Experiment(BaseModel):
 
 
 def save_experiment_config(config: Experiment, json_file_path: str = ""):
+    # TODO: consider using confi.model_dump_json()
     config_dict = config.dict()
     # Convert all Path objects to strings
     for key, value in config_dict.items():
