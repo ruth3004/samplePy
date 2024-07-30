@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66d86078-e06b-4e01-8448-8c72b5e5da0b" name="Changes" comment="rough folder structure of samplePy with motion correction">
+      <change afterPath="$PROJECT_DIR$/register_lm_trials_lm_stack.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/00_load_experiment.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/00_load_experiment.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/01_alignment_lm_trials.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/01_alignment_lm_trials.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/config_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/config_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/sample_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sample_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alignment/align_imaged_plane_in_stack_by_tiling.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/alignment/align_imaged_plane_in_stack_by_tiling.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alignment/align_imaged_plane_in_stack_by_tiling_auto.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/alignment/align_imaged_plane_in_stack_by_tiling_auto.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alignment/image_alignment.py" beforeDir="false" afterPath="$PROJECT_DIR$/alignment/image_alignment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/01_register_lm_trials.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/01_register_lm_trials.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/02_register_lm_trials_lm_stack.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/02_register_lm_trials_lm_stack.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/13_correlation_lm_traces.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/13_analyze_correlation_lm_traces.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/34_register_em_stack_lm_trials.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/34_register_em_stack_lm_trials.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/utils/image_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/utils/image_utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,38 +44,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python tests.Python tests in test_sample.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in tests.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/ProgramData/mambaforge/condabin/conda.bat&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;settings.editor.splitter.proportion&quot;: &quot;0.29735234&quot;,
-    &quot;two.files.diff.last.used.file&quot;: &quot;D:/montruth/PycharmProjects/samplePy/data/calcium/2022-04-26/f3/sampleConfig_.json&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests in test_sample.py.executor": "Debug",
+    "Python tests.Python tests in tests.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/montruth/PycharmProjects/samplePy/notebooks/implement",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.splitter.proportion": "0.29735234",
+    "two.files.diff.last.used.file": "D:/montruth/PycharmProjects/samplePy/data/calcium/2022-04-26/f3/sampleConfig_.json",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "Python"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\montruth\PycharmProjects\samplePy\notebooks\implement" />
+      <recent name="D:\montruth\PycharmProjects\samplePy" />
+      <recent name="D:\montruth\PycharmProjects\samplePy\notebooks" />
       <recent name="C:\Users\montruth\PycharmProjects\samplePy\data\calcium" />
       <recent name="C:\Users\montruth\PycharmProjects\samplePy\src\image_analysis" />
-      <recent name="C:\Users\montruth\PycharmProjects\samplePy\src" />
-      <recent name="C:\Users\montruth\PycharmProjects\samplePy\data\em" />
-      <recent name="C:\Users\montruth\PycharmProjects\samplePy\data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\montruth\PycharmProjects\samplePy\notebooks\sandbox" />
       <recent name="D:\montruth\PycharmProjects\samplePy\scripts\utils" />
       <recent name="D:\montruth\PycharmProjects\samplePy\scripts" />
       <recent name="D:\montruth\PycharmProjects\samplePy\data\calcium\2022-04-26\f3\raw\anatomy" />
       <recent name="D:\montruth\PycharmProjects\samplePy" />
-      <recent name="C:\Users\montruth\PycharmProjects\samplePy\src" />
     </key>
   </component>
   <component name="RunManager" selected="Python tests.Python tests in test_sample.py">
@@ -147,7 +157,12 @@
       <workItem from="1715961887774" duration="3508000" />
       <workItem from="1716288920975" duration="176892000" />
       <workItem from="1717513697186" duration="59900000" />
-      <workItem from="1718280170478" duration="11807000" />
+      <workItem from="1718280170478" duration="99430000" />
+      <workItem from="1719843443656" duration="73489000" />
+      <workItem from="1720784309228" duration="2689000" />
+      <workItem from="1720796664493" duration="32960000" />
+      <workItem from="1721133041695" duration="53079000" />
+      <workItem from="1721811999978" duration="68947000" />
     </task>
     <servers />
   </component>
@@ -159,7 +174,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -176,16 +197,6 @@
           <url>notebook://D:/montruth/PycharmProjects/samplePy/notebooks/02_registration_lm_trials_.ipynb</url>
           <line>2</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>notebook://D:/montruth/PycharmProjects/samplePy/notebooks/02_segmentation_lm_trials.ipynb</url>
-          <line>111</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>notebook://D:/montruth/PycharmProjects/samplePy/notebooks/02_segmentation_lm_trials.ipynb</url>
-          <line>138</line>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

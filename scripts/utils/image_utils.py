@@ -7,6 +7,8 @@ from matplotlib.gridspec import GridSpec, GridSpecFromSubplotSpec
 from skimage import feature
 from skimage.exposure import match_histograms
 from scipy.interpolate import griddata
+import random
+import os
 
 def extend_stack(stack, margin):
     """
@@ -139,7 +141,38 @@ def load_tiff_as_hyperstack(file_path, n_slices=1, n_channels=1, doubling=False)
         return hyperstack
 
 
-def find_plane_in_stack(plane, stack, plot_all_correlations=False, z_range=None):
+def compute_reference_trial_images(trials_path,  n_planes, ignore_until_frame=0, save_path=None):
+    ref_images = []
+    raw_trial_paths = os.listdir(os.path.join(trials_path, "raw"))
+    for trial_path in raw_trial_paths:
+        trial_images = load_tiff_as_hyperstack(os.path.join(trials_path, "raw", trial_path),
+                                               n_channels=1,
+                                               n_slices=n_planes,
+                                               doubling=True)
+        ref_planes = []
+        for plane in trial_images:
+            random_frames = random.sample(range(ignore_until_frame, plane.shape[0]), 250)
+            images_array = [plane[frame].flatten() for frame in random_frames]
+            corr_mat = np.corrcoef(images_array)
+            tri_upper = np.triu(corr_mat, k=1)
+            sorted_indices = np.dstack(np.unravel_index(np.argsort(-tri_upper.ravel()), tri_upper.shape))[0]
+            sorted_pairs = [(i, j, corr_mat[i, j]) for i, j in sorted_indices]
+            top_n = 100
+            avg_corr = np.mean(corr_mat, axis=1)
+            top_indices = np.argsort(avg_corr)[-top_n:]
+            top_images = [plane[idx] for idx in top_indices]
+            sum_top_images = np.sum(top_images, axis=0)
+            original_shape = plane[0].shape
+            sum_top_images_reshaped = sum_top_images.reshape(original_shape)
+            ref_planes.append(sum_top_images_reshaped)
+        ref_images.append(np.stack(ref_planes, axis=0))
+    if save_path is not None:
+        save_array_as_hyperstack_tiff(save_path, ref_images)
+
+    return np.stack(ref_images, axis=1)
+
+
+def coarse_plane_detection_in_stack(plane, stack, plot_all_correlations=False, z_range=None):
     """
     Correlate a given plane with slices in a 3D stack.
     If an angle is provided, the stack is rotated before correlation along the plane given.
@@ -220,7 +253,7 @@ def plot_matched_plane_and_cropped_slice(stack, plane, position, match_hist=True
     plt.show()
 
 
-def find_best_planes(tiles, stack, tiles_filter, z_range=None):
+def fine_plane_detection_in_stack_by_tiling(tiles, stack, tiles_filter, z_range=None):
     """
     Find the best matching plane in a stack for each tile, based on a filter.
 
@@ -247,7 +280,7 @@ def find_best_planes(tiles, stack, tiles_filter, z_range=None):
         for j in range(nx):
             if tiles_filter[i, j] == 1:
                 # Replace this with the actual function call and its return values
-                max_corr, max_position, all_correlations = find_plane_in_stack(tiles[i, j], stack, z_range=z_range)
+                max_corr, max_position, all_correlations = coarse_plane_detection_in_stack(tiles[i, j], stack, z_range=z_range)
 
                 best_plane_matrix[i, j] = max_position
                 all_correlations_matrix[i, j, :] = all_correlations
