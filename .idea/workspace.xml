@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66d86078-e06b-4e01-8448-8c72b5e5da0b" name="Changes" comment="rough folder structure of samplePy with motion correction">
-      <change afterPath="$PROJECT_DIR$/batch/11_normalize_lm_traces.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebooks/11_normalize_lm_traces_.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/10_extract_lm_traces.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/10_extract_lm_traces.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/11_normalize_lm_traces.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/11_normalize_lm_traces.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cell_mapping.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cell_mapping.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/10_extract_lm_traces.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +154,7 @@
       <workItem from="1720796664493" duration="32960000" />
       <workItem from="1721133041695" duration="53079000" />
       <workItem from="1721811999978" duration="152570000" />
-      <workItem from="1723128223611" duration="16334000" />
+      <workItem from="1723128223611" duration="16522000" />
     </task>
     <servers />
   </component>
