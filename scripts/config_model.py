@@ -25,9 +25,8 @@ class ParamsOdor(BaseModel):
     odor_sequence: List[str]
     odor_concentration_uM: List[OdorConcentration]
     n_trials: int
-    pulse_delay_s: int
-    pulse_duration_s: int
-    trial_interval_s: int
+    pulse_delay_s: Optional[int] = None
+    trial_interval_s: Optional[int] = None
     missed_trials: List = []
     events: List[Tuple[str, datetime]] = []
 
@@ -57,7 +56,7 @@ class ParamsLM(BaseModel):
     doubling: bool
     lm_stack_range: int
     ref_plane: int
-    ref_frames_ignored: int
+    shutter_delay_frames: Optional[int] = 40
     ref_n_frames: Optional[int]
     ref_n_slices: Optional[int]
     ref_slice_interval_um: float
@@ -76,10 +75,10 @@ class ParamsLM(BaseModel):
 
 
 class ParamsEM(BaseModel):
-    fixation_protocol: str
-    embedding_protocol: str
-    acquisition_completed: bool
-    acquisition_resolution_zyx: Tuple[int, int, int]
+    fixation_protocol: Optional[str] = None
+    embedding_protocol: Optional[str] = None
+    acquisition_completed: Optional[bool] = None
+    acquisition_resolution_zyx: Optional[Tuple[int, int, int]] = None
 
     class Config:
         extra = 'allow'

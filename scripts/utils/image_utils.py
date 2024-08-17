@@ -10,6 +10,10 @@ from scipy.interpolate import griddata
 import random
 import os
 
+from skimage.transform import SimilarityTransform
+
+from skimage.exposure import match_histograms, equalize_adapthist, rescale_intensity
+
 def extend_stack(stack, margin):
     """
     Extends the boundaries of each slice in the stack by a specified margin.
@@ -141,35 +145,37 @@ def load_tiff_as_hyperstack(file_path, n_slices=1, n_channels=1, doubling=False)
         return hyperstack
 
 
-def compute_reference_trial_images(trials_path,  n_planes, ignore_until_frame=0, save_path=None):
-    ref_images = []
+def compute_reference_trial_images(trials_path, n_planes, ignore_until_frame=0, save_path=None):
     raw_trial_paths = os.listdir(os.path.join(trials_path, "raw"))
+    ref_images = []
+
     for trial_path in raw_trial_paths:
         trial_images = load_tiff_as_hyperstack(os.path.join(trials_path, "raw", trial_path),
                                                n_channels=1,
                                                n_slices=n_planes,
                                                doubling=True)
         ref_planes = []
+
         for plane in trial_images:
-            random_frames = random.sample(range(ignore_until_frame, plane.shape[0]), 250)
+            random_frames = random.sample(range(ignore_until_frame, plane.shape[0]), min(250, plane.shape[0] - ignore_until_frame))
             images_array = [plane[frame].flatten() for frame in random_frames]
             corr_mat = np.corrcoef(images_array)
-            tri_upper = np.triu(corr_mat, k=1)
-            sorted_indices = np.dstack(np.unravel_index(np.argsort(-tri_upper.ravel()), tri_upper.shape))[0]
-            sorted_pairs = [(i, j, corr_mat[i, j]) for i, j in sorted_indices]
-            top_n = 100
             avg_corr = np.mean(corr_mat, axis=1)
+            top_n = min(100, len(avg_corr))
             top_indices = np.argsort(avg_corr)[-top_n:]
             top_images = [plane[idx] for idx in top_indices]
             sum_top_images = np.sum(top_images, axis=0)
-            original_shape = plane[0].shape
-            sum_top_images_reshaped = sum_top_images.reshape(original_shape)
-            ref_planes.append(sum_top_images_reshaped)
-        ref_images.append(np.stack(ref_planes, axis=0))
-    if save_path is not None:
-        save_array_as_hyperstack_tiff(save_path, ref_images)
+            ref_planes.append(sum_top_images)
 
-    return np.stack(ref_images, axis=1)
+        ref_images.append(np.stack(ref_planes, axis=0))
+
+    # Convert list of arrays to a single numpy array
+    ref_images_array = np.stack(ref_images, axis=1)
+
+    if save_path is not None:
+        save_array_as_hyperstack_tiff(save_path, ref_images_array)
+
+    return ref_images_array
 
 
 def coarse_plane_detection_in_stack(plane, stack, plot_all_correlations=False, z_range=None):
@@ -451,8 +457,172 @@ def slice_into_uniform_tiles(image, nx, ny, plot=True):
 
     return reshaped_tiles, (M, N), (adjusted_height, adjusted_width)
 
-def save_array_as_hyperstack_tiff(path, array):
-    #array_reshaped = array.transpose(1, 0, 2, 3).astype(np.float32)
-    array = array.astype(np.float32)
-    # Save as TIFF with tifffile
-    tifffile.imwrite(path, array, imagej=True)
+def save_array_as_hyperstack_tiff(path, array, transpose=False):
+    if not isinstance(array, np.ndarray):
+            array = np.array(array)
+    if transpose:
+        array_reshaped = array.transpose(1, 0, 2, 3).astype(np.float32)
+        tifffile.imwrite(path, array_reshaped, imagej=True)
+    else:
+        array = array.astype(np.float32)
+        tifffile.imwrite(path, array, imagej=True)
+
+
+
+
+def plane_detection_with_iterative_alignment(plane, stack, equalize=True, binning=True, plot=True, nx=2, ny=3,
+                                             tiles_filter=None, thickness_values=None):
+    """
+    Detects a plane within a 3D image stack using iterative alignment of tiles.
+
+    This function performs plane detection in a 3D image stack by iteratively aligning tiles
+    from a 2D plane image to the stack. It uses a combination of image processing techniques
+    including adaptive histogram equalization, binning, coarse detection, and fine alignment
+    using tile-based correlation.
+
+    Parameters:
+    -----------
+    plane : numpy.ndarray
+        2D array representing the plane to be detected in the stack.
+    stack : numpy.ndarray
+        3D array representing the image stack to search for the plane.
+    equalize : bool, optional (default=True)
+        If True, apply adaptive histogram equalization to the images.
+    binning : bool, optional (default=True)
+        If True, apply binning to reduce image size for initial coarse detection.
+    plot : bool, optional (default=True)
+        If True, generate plots at various stages of the detection process.
+    nx : int, optional (default=2)
+        Number of tiles in the x-direction for fine alignment.
+    ny : int, optional (default=3)
+        Number of tiles in the y-direction for fine alignment.
+    tiles_filter : numpy.ndarray, optional (default=None)
+        2D boolean array to select which tiles to use in the alignment process.
+        If None, a default filter is used.
+    thickness_values : list of int, optional (default=None)
+        List of thickness values to use in iterative alignment.
+        If None, default values [100, 50, 50, 30, 30, 20] are used.
+
+    Returns:
+    --------
+    current_tform : numpy.ndarray
+        4x4 transformation matrix representing the final alignment.
+    all_transformation_matrices : list of numpy.ndarray
+        List of all intermediate transformation matrices.
+
+    Notes:
+    ------
+    The function performs the following main steps:
+    1. Image preprocessing (equalization and binning)
+    2. Coarse detection of the plane in the stack
+    3. Iterative fine alignment using tile-based correlation
+    4. Transformation estimation and refinement
+
+"""
+
+    # Set default tiles_filter if not provided
+    if tiles_filter is None:
+        tiles_filter = np.array([[1, 1],
+                                 [1, 1],
+                                 [0, 0]])
+
+    # Equalization
+    if equalize:
+        try:
+            equalized_plane = equalize_adapthist(plane, clip_limit=0.03)
+        except:
+            equalized_plane = equalize_adapthist(rescale_intensity(plane, out_range=(0, 1)), clip_limit=0.03)
+
+        equalized_stack = np.array([
+            equalize_adapthist(rescale_intensity(slice, out_range=(0, 1)), clip_limit=0.03)
+            for slice in stack
+        ])
+    else:
+        equalized_plane = plane
+        equalized_stack = stack
+
+    # Binning
+    if binning:
+        binned_plane = bin_image(equalized_plane)
+        binned_stack = np.array([bin_image(slice) for slice in equalized_stack])
+    else:
+        binned_plane = equalized_plane
+        binned_stack = equalized_stack
+
+    # Coarse detection
+    max_corr_coarse, max_position_coarse, _ = coarse_plane_detection_in_stack(binned_plane, binned_stack,
+                                                                              plot_all_correlations=plot)
+
+    if plot:
+        plot_matched_plane_and_cropped_slice(binned_stack, binned_plane, max_position_coarse)
+
+    if thickness_values is None:
+        thickness_values = [100, 50, 50, 30, 30, 20, 20]
+
+    # Slice into tiles
+    tiles, tile_size, adj_image_size = slice_into_uniform_tiles(equalized_plane, nx, ny, plot=plot)
+
+    x = np.arange(tile_size[1] // 2, adj_image_size[1], tile_size[1])
+    y = np.arange(tile_size[0] // 2, adj_image_size[0], tile_size[0])
+    xv, yv = np.meshgrid(x, y)
+
+    points_filter = np.where(tiles_filter.flatten() == 1)
+
+    all_transformation_matrices = [np.eye(4)]
+    current_tform = np.eye(4)
+
+    # Iterative alignment of tiles
+    for thickness in thickness_values:
+        print(f"Thickness {thickness}")
+        if len(all_transformation_matrices) == 1:
+            min_z_range = max(0, max_position_coarse[0] - thickness // 2)
+            max_z_range = min(stack.shape[0], max_position_coarse[0] + thickness // 2)
+            best_plane_matrix, all_correlations_matrix = fine_plane_detection_in_stack_by_tiling(
+                tiles, equalized_stack, tiles_filter, z_range=[min_z_range, max_z_range])
+
+            if plot:
+                plot_image_correlation(tiles, equalized_stack, best_plane_matrix, all_correlations_matrix)
+
+            lm_plane_points = np.array([(0, yv[i, j], xv[i, j])
+                                        for i in range(ny) for j in range(nx)])
+        else:
+            interpolated_stack = warp_stack_to_plane(stack, plane, SimilarityTransform(current_tform), thickness)
+
+            best_plane_matrix, all_correlations_matrix = fine_plane_detection_in_stack_by_tiling(
+                tiles, interpolated_stack, tiles_filter)
+
+            if plot:
+                plot_image_correlation(tiles, interpolated_stack, best_plane_matrix, all_correlations_matrix)
+
+            lm_plane_points = np.array([(interpolated_stack.shape[0] // 2, yv[i, j], xv[i, j])
+                                        for i in range(ny) for j in range(nx)])
+
+        lm_stack_points = np.array([best_plane_matrix[i, j] for i in range(ny) for j in range(nx)])
+
+        source = lm_plane_points[points_filter]
+        target = lm_stack_points[points_filter]
+
+        tform = SimilarityTransform()
+        tform.estimate(source, target)
+
+        all_transformation_matrices.append(tform.params)
+        current_tform = np.linalg.multi_dot(all_transformation_matrices[::-1])
+
+    # Plot the last matched slice with plane
+
+    last_matched_slice = warp_stack_to_plane(stack, plane, SimilarityTransform(current_tform), thickness_values[-1])[
+        thickness_values[-1] // 2]
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 6))
+    ax1.imshow(plane, cmap='gray')
+    ax1.set_title('Original Plane')
+    ax1.axis('off')
+
+    ax2.imshow(last_matched_slice, cmap='gray')
+    ax2.set_title('Last Matched Slice')
+    ax2.axis('off')
+
+    plt.tight_layout()
+    plt.show()
+
+    return current_tform, all_transformation_matrices

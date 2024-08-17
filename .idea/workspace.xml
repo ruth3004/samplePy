@@ -5,7 +5,616 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66d86078-e06b-4e01-8448-8c72b5e5da0b" name="Changes" comment="rough folder structure of samplePy with motion correction">
-      <change afterPath="$PROJECT_DIR$/batch/10_extract_lm_traces.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/00_load_experiment.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/01_register_lm_trials.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/02_register_lm_trials_lm_stack.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Demo scripts/Calibrated_spike_inference_with_Cascade.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Demo scripts/Demo_benchmark_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Demo scripts/Demo_discrete_spikes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Demo scripts/Demo_predict.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Demo scripts/Demo_predict.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Demo scripts/Demo_train.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Demo scripts/Demo_train.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Demo scripts/Explore_ground_truth_datasets.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Example_datasets/Allen-Brain-Observatory-Visual-Coding-30Hz/Experiment_552195520_excerpt.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Example_datasets/Multiplane-OGB1-zf-pDp-Rupprecht-7.5Hz/Calcium_traces_01.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Example_datasets/Multiplane-OGB1-zf-pDp-Rupprecht-7.5Hz/Calcium_traces_02.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Example_datasets/Multiplane-OGB1-zf-pDp-Rupprecht-7.5Hz/Calcium_traces_03.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Example_datasets/Multiplane-OGB1-zf-pDp-Rupprecht-7.5Hz/Calcium_traces_04.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Example_datasets/Multiplane-OGB1-zf-pDp-Rupprecht-7.5Hz/discrete_spikes_Calcium_traces_04.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Example_datasets/Multiplane-OGB1-zf-pDp-Rupprecht-7.5Hz/full_prediction_Calcium_traces_04.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_10_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_11_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_12_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_13_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_14_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_15_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_16_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_17_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_18_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_19_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_20_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_21_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_6_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_7_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_8_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS01-OGB1-m-V1/CAttached_Theis16_set2_OGB_V1_cell_9_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell10_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell12_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell19_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell20_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell21_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell22_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell23_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell24_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell6_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell7_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell8_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS02-OGB1-2-m-V1/CAttached_Kwan2012_OGB_L23_pyramidal_cell9_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS03-Cal520-m-S1/CAttached_S1_Cal520_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS03-Cal520-m-S1/CAttached_S1_Cal520_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS03-Cal520-m-S1/CAttached_S1_Cal520_cell4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS03-Cal520-m-S1/CAttached_S1_Cal520_cell5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS03-Cal520-m-S1/CAttached_S1_Cal520_cell6_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS03-Cal520-m-S1/CAttached_S1_Cal520_cell7_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS03-Cal520-m-S1/CAttached_S1_Cal520_cell8_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS03-Cal520-m-S1/CAttached_S1_Cal520_cell9_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS04-OGB1-zf-pDp/CAttached_OGB_pDp_190115_Fish2_cell4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS04-OGB1-zf-pDp/CAttached_OGB_pDp_190115_Fish2_cell5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS04-OGB1-zf-pDp/CAttached_OGB_pDp_190115_Fish2_cell6_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS04-OGB1-zf-pDp/CAttached_OGB_pDp_190115_Fish2_cell7_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS04-OGB1-zf-pDp/CAttached_OGB_pDp_190115_Fish2_cell8_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS04-OGB1-zf-pDp/CAttached_OGB_pDp_190115_Fish2_cellA_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS04-OGB1-zf-pDp/CAttached_OGB_pDp_190116_Fish1_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS04-OGB1-zf-pDp/CAttached_OGB_pDp_190116_Fish1_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS04-OGB1-zf-pDp/CAttached_OGB_pDp_190116_Fish1_cell7_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS04-OGB1-zf-pDp/CAttached_OGB_pDp_190125_Fish1_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS04-OGB1-zf-pDp/CAttached_OGB_pDp_190301_Fish1_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS04-OGB1-zf-pDp/CAttached_OGB_pDp_190301_Fish1_cell4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS04-OGB1-zf-pDp/CAttached_OGB_pDp_190301_Fish1_cell6_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS04-OGB1-zf-pDp/CAttached_OGB_pDp_190301_Fish1_cell8_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS04-OGB1-zf-pDp/CAttached_OGB_pDp_190301_Fish1_cellB_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS05-Cal520-zf-pDp/CAttached_Cal520_pDp_190118_Fish1_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS05-Cal520-zf-pDp/CAttached_Cal520_pDp_190118_Fish1_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS05-Cal520-zf-pDp/CAttached_Cal520_pDp_190118_Fish1_cell6_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS05-Cal520-zf-pDp/CAttached_Cal520_pDp_190118_Fish1_cellB_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS05-Cal520-zf-pDp/CAttached_Cal520_pDp_190118_Fish1_cellC_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS06-GCaMP6f-zf-aDp/CAttached_GC_aDp_190501_Fish1_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS06-GCaMP6f-zf-aDp/CAttached_GC_aDp_190501_Fish1_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS06-GCaMP6f-zf-aDp/CAttached_GC_aDp_190501_Fish1_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS06-GCaMP6f-zf-aDp/CAttached_GC_aDp_190501_Fish1_cell4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS06-GCaMP6f-zf-aDp/CAttached_GC_aDp_190501_Fish1_cell5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS06-GCaMP6f-zf-aDp/CAttached_GC_aDp_190517_Fish1_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS06-GCaMP6f-zf-aDp/CAttached_GC_aDp_190517_Fish1_cell4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS06-GCaMP6f-zf-aDp/CAttached_GC_aDp_190517_Fish1_cell5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS07-GCaMP6f-zf-dD/CAttached_GC_dorsal_190522_Fish1_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS07-GCaMP6f-zf-dD/CAttached_GC_dorsal_190522_Fish1_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS07-GCaMP6f-zf-dD/CAttached_GC_dorsal_190522_Fish1_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS07-GCaMP6f-zf-dD/CAttached_GC_dorsal_190522_Fish1_cell5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS07-GCaMP6f-zf-dD/CAttached_GC_dorsal_190522_Fish1_cell6_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS07-GCaMP6f-zf-dD/CAttached_GC_dorsal_190522_Fish2_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS07-GCaMP6f-zf-dD/CAttached_GC_dorsal_190522_Fish2_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS07-GCaMP6f-zf-dD/CAttached_GC_dorsal_190522_Fish2_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS07-GCaMP6f-zf-dD/CAttached_GC_dorsal_190522_Fish2_cell4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS07-GCaMP6f-zf-dD/CAttached_GC_dorsal_190522_Fish2_cell5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS08-GCaMP6f-zf-OB/CAttached_GC_OB_190413_Fish1_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS08-GCaMP6f-zf-OB/CAttached_GC_OB_190508_Fish2_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS08-GCaMP6f-zf-OB/CAttached_GC_OB_190508_Fish2_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS08-GCaMP6f-zf-OB/CAttached_GC_OB_190508_Fish2_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS08-GCaMP6f-zf-OB/CAttached_GC_OB_190508_Fish2_cell5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS08-GCaMP6f-zf-OB/CAttached_GC_OB_190508_Fish2_cell6_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS08-GCaMP6f-zf-OB/CAttached_GC_OB_190508_Fish2_cell7_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS08-GCaMP6f-zf-OB/CAttached_GC_OB_190508_Fish2_cell8_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS08-GCaMP6f-zf-OB/CAttached_GC_OB_190517_Fish1_cell8_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS09-GCaMP6f-m-V1/CAttached_Chen2013_GC6f_cell10_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS09-GCaMP6f-m-V1/CAttached_Chen2013_GC6f_cell1B_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS09-GCaMP6f-m-V1/CAttached_Chen2013_GC6f_cell1C_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS09-GCaMP6f-m-V1/CAttached_Chen2013_GC6f_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS09-GCaMP6f-m-V1/CAttached_Chen2013_GC6f_cell2C_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS09-GCaMP6f-m-V1/CAttached_Chen2013_GC6f_cell3C_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS09-GCaMP6f-m-V1/CAttached_Chen2013_GC6f_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS09-GCaMP6f-m-V1/CAttached_Chen2013_GC6f_cell4C_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS09-GCaMP6f-m-V1/CAttached_Chen2013_GC6f_cell4_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS09-GCaMP6f-m-V1/CAttached_Chen2013_GC6f_cell5C_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS09-GCaMP6f-m-V1/CAttached_Chen2013_GC6f_cell7C_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_102956_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_102959_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_102969_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_102978_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_102985_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103000_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103004_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103014_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103394_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103402_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103406_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103410_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103413_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103433_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103447_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103450_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103453_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103467_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103469_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103472_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103479_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103480_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS10-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Emx1_103499_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103703_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103712_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103721_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103727_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103732_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103869_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103874_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103875_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103877_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103910_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103920_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103931_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103940_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103947_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103950_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103953_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103958_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103971_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103975_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103979_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103982_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103988_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103991_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103995_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS11-GCaMP6f-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103999_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS12-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_tetO_101084_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS12-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_tetO_102912_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS12-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_tetO_102932_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS12-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_tetO_102939_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS12-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_tetO_102941_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS12-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_tetO_102945_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102086_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102102_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102422_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102436_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102437_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102443_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102451_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102511_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102516_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102519_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102525_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102529_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102858_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102860_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102862_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102875_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102890_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_102906_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103750_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103753_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103808_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103813_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103842_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103844_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103863_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS13-GCaMP6s-m-V1-neuropil-corrected/CAttached_Allen_Cux2f_103864_neuropil_subtracted_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS14-GCaMP6s-m-V1/CAttached_Chen2013_GC6s_cell1B_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS14-GCaMP6s-m-V1/CAttached_Chen2013_GC6s_cell1C_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS14-GCaMP6s-m-V1/CAttached_Chen2013_GC6s_cell1_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS14-GCaMP6s-m-V1/CAttached_Chen2013_GC6s_cell3C_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS14-GCaMP6s-m-V1/CAttached_Chen2013_GC6s_cell3_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS14-GCaMP6s-m-V1/CAttached_Chen2013_GC6s_cell4C_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS14-GCaMP6s-m-V1/CAttached_Chen2013_GC6s_cell4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS15-GCaMP6s-m-V1/CAttached_Theis16_set3_GCaMP6s_V1_cell_10_corrected_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS15-GCaMP6s-m-V1/CAttached_Theis16_set3_GCaMP6s_V1_cell_11_corrected_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS15-GCaMP6s-m-V1/CAttached_Theis16_set3_GCaMP6s_V1_cell_1_corrected_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS15-GCaMP6s-m-V1/CAttached_Theis16_set3_GCaMP6s_V1_cell_2_corrected_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS15-GCaMP6s-m-V1/CAttached_Theis16_set3_GCaMP6s_V1_cell_3_corrected_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS15-GCaMP6s-m-V1/CAttached_Theis16_set3_GCaMP6s_V1_cell_4_corrected_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS15-GCaMP6s-m-V1/CAttached_Theis16_set3_GCaMP6s_V1_cell_7_corrected_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS15-GCaMP6s-m-V1/CAttached_Theis16_set3_GCaMP6s_V1_cell_8_corrected_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS15-GCaMP6s-m-V1/CAttached_Theis16_set3_GCaMP6s_V1_cell_9_corrected_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS16-GCaMP6s-m-V1/CAttached_Theis16_set5_GCaMP6s_V1_1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS16-GCaMP6s-m-V1/CAttached_Theis16_set5_GCaMP6s_V1_2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS16-GCaMP6s-m-V1/CAttached_Theis16_set5_GCaMP6s_V1_3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS16-GCaMP6s-m-V1/CAttached_Theis16_set5_GCaMP6s_V1_4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS16-GCaMP6s-m-V1/CAttached_Theis16_set5_GCaMP6s_V1_5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS16-GCaMP6s-m-V1/CAttached_Theis16_set5_GCaMP6s_V1_6_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS16-GCaMP6s-m-V1/CAttached_Theis16_set5_GCaMP6s_V1_7_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS16-GCaMP6s-m-V1/CAttached_Theis16_set5_GCaMP6s_V1_8_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS16-GCaMP6s-m-V1/CAttached_Theis16_set5_GCaMP6s_V1_9_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS17-GCaMP5k-m-V1/CAttached_Akerboom_GC5k_cell12_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS17-GCaMP5k-m-V1/CAttached_Akerboom_GC5k_cell1C_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS17-GCaMP5k-m-V1/CAttached_Akerboom_GC5k_cell1D_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS17-GCaMP5k-m-V1/CAttached_Akerboom_GC5k_cell1_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS17-GCaMP5k-m-V1/CAttached_Akerboom_GC5k_cell2B_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS17-GCaMP5k-m-V1/CAttached_Akerboom_GC5k_cell2C_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS17-GCaMP5k-m-V1/CAttached_Akerboom_GC5k_cell2_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS17-GCaMP5k-m-V1/CAttached_Akerboom_GC5k_cell4D_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS17-GCaMP5k-m-V1/CAttached_Akerboom_GC5k_cell7_full_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS18-R-CaMP-m-CA3/CAttached_CA3_cell1_160927_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS18-R-CaMP-m-CA3/CAttached_CA3_cell1_170307_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS18-R-CaMP-m-CA3/CAttached_CA3_cell4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS18-R-CaMP-m-CA3/CAttached_CA3_cell5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS19-R-CaMP-m-S1/CAttached_S1_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS19-R-CaMP-m-S1/CAttached_S1_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS19-R-CaMP-m-S1/CAttached_S1_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS19-R-CaMP-m-S1/CAttached_S1_cell4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS19-R-CaMP-m-S1/CAttached_S1_cell5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS19-R-CaMP-m-S1/CAttached_S1_cell6_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS19-R-CaMP-m-S1/CAttached_S1_cell7_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS19-R-CaMP-m-S1/CAttached_S1_cell8_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS19-R-CaMP-m-S1/CAttached_S1_cell9_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS20-jRCaMP1a-m-V1/CAttached_Mohar16_jRCaMP1a_V1_10_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS20-jRCaMP1a-m-V1/CAttached_Mohar16_jRCaMP1a_V1_1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS20-jRCaMP1a-m-V1/CAttached_Mohar16_jRCaMP1a_V1_2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS20-jRCaMP1a-m-V1/CAttached_Mohar16_jRCaMP1a_V1_3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS20-jRCaMP1a-m-V1/CAttached_Mohar16_jRCaMP1a_V1_4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS20-jRCaMP1a-m-V1/CAttached_Mohar16_jRCaMP1a_V1_5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS20-jRCaMP1a-m-V1/CAttached_Mohar16_jRCaMP1a_V1_6_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS20-jRCaMP1a-m-V1/CAttached_Mohar16_jRCaMP1a_V1_7_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS20-jRCaMP1a-m-V1/CAttached_Mohar16_jRCaMP1a_V1_9_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS21-jGECO1a-m-V1/CAttached_Mohar16_jRGECO1a_V1_10_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS21-jGECO1a-m-V1/CAttached_Mohar16_jRGECO1a_V1_11_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS21-jGECO1a-m-V1/CAttached_Mohar16_jRGECO1a_V1_1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS21-jGECO1a-m-V1/CAttached_Mohar16_jRGECO1a_V1_2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS21-jGECO1a-m-V1/CAttached_Mohar16_jRGECO1a_V1_3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS21-jGECO1a-m-V1/CAttached_Mohar16_jRGECO1a_V1_4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS21-jGECO1a-m-V1/CAttached_Mohar16_jRGECO1a_V1_5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS21-jGECO1a-m-V1/CAttached_Mohar16_jRGECO1a_V1_6_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS21-jGECO1a-m-V1/CAttached_Mohar16_jRGECO1a_V1_7_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS21-jGECO1a-m-V1/CAttached_Mohar16_jRGECO1a_V1_8_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS21-jGECO1a-m-V1/CAttached_Mohar16_jRGECO1a_V1_9_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS22-OGB1-m-SST-V1/CAttached_Kwan2012_OGB_L23_SST_GIN_cell16_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS22-OGB1-m-SST-V1/CAttached_Kwan2012_OGB_L23_SST_GIN_cell18_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS22-OGB1-m-SST-V1/CAttached_Kwan2012_OGB_L23_SST_GIN_cell30_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS22-OGB1-m-SST-V1/CAttached_Kwan2012_OGB_L23_SST_GIN_cell33_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS22-OGB1-m-SST-V1/CAttached_Kwan2012_OGB_L23_SST_GIN_cell34_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS23-OGB1-m-PV-V1/CAttached_Kwan2012_OGB_L23_PV_cell11_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS23-OGB1-m-PV-V1/CAttached_Kwan2012_OGB_L23_PV_cell13_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS23-OGB1-m-PV-V1/CAttached_Kwan2012_OGB_L23_PV_cell15_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS23-OGB1-m-PV-V1/CAttached_Kwan2012_OGB_L23_PV_cell25_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS23-OGB1-m-PV-V1/CAttached_Kwan2012_OGB_L23_PV_cell27_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS23-OGB1-m-PV-V1/CAttached_Kwan2012_OGB_L23_PV_cell28_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS23-OGB1-m-PV-V1/CAttached_Kwan2012_OGB_L23_PV_cell4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS24-GCaMP6f-m-PV-V1/CAttachedPVVitro05_Cell01_PuffKCl02_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS24-GCaMP6f-m-PV-V1/CAttachedPVVitro05_Cell07_PuffKCl02_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS24-GCaMP6f-m-PV-V1/CAttachedPVVitro06_Cell03_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS24-GCaMP6f-m-PV-V1/CAttachedPVVitro06_Cell06_Puff01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS24-GCaMP6f-m-PV-V1/CAttachedPVVitro07_Cell01_PuffKCl02_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS24-GCaMP6f-m-PV-V1/CAttachedPVVitro07_Cell02_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS24-GCaMP6f-m-PV-V1/CAttachedPVVitro07_Cell03_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS24-GCaMP6f-m-PV-V1/CAttachedPVVitro07_Cell04_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS24-GCaMP6f-m-PV-V1/CAttachedPVVitro08_Cell01_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS24-GCaMP6f-m-PV-V1/CAttachedPVVitro08_Cell02_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS24-GCaMP6f-m-PV-V1/CAttachedPVVitro08_Cell03_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS24-GCaMP6f-m-PV-V1/CAttachedPVVitro08_Cell04_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS24-GCaMP6f-m-PV-V1/CAttachedPVVitro08_Cell05_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSOMVitro02_Cell01_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSOMVitro02_Cell02_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSOMVitro02_Cell03_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSOMVitro02_Cell04_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSOMVitro02_Cell05_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSOMVitro03_Cell01_PuffKCl02_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSOMVitro03_Cell02_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSOMVitro03_Cell04_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSOMVitro03_Cell06_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSOMVitro03_Cell07_PuffKCl02_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSOMVitro03_Cell08_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSOMVitro03_Cell09_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSomVitro01_Cell01_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSomVitro01_Cell03_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSomVitro01_Cell04_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSomVitro01_Cell06_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS25-GCaMP6f-m-SST-V1/CAttachedSomVitro01_Cell08_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS26-GCaMP6f-m-VIP-V1/CAttachedVIPVitro01_Cell03_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS26-GCaMP6f-m-VIP-V1/CAttachedVIPVitro01_Cell04_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS26-GCaMP6f-m-VIP-V1/CAttachedVIPVitro01_Cell05_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS26-GCaMP6f-m-VIP-V1/CAttachedVIPVitro02_Cell01_PuffKCl02_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS26-GCaMP6f-m-VIP-V1/CAttachedVIPVitro02_Cell02_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS26-GCaMP6f-m-VIP-V1/CAttachedVIPVitro02_Cell07_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS26-GCaMP6f-m-VIP-V1/CAttachedVIPVitro02_Cell08_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS26-GCaMP6f-m-VIP-V1/CAttachedVIPVitro03_Cell03_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS26-GCaMP6f-m-VIP-V1/CAttachedVIPVitro03_Cell04_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS26-GCaMP6f-m-VIP-V1/CAttachedVIPVitro03_Cell05_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS26-GCaMP6f-m-VIP-V1/CAttachedVIPVitro03_Cell08_PuffKCl01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS27-GCaMP6f-m-PV-vivo-V1/CAttachedPVCamp01_cell_01_gratings01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS27-GCaMP6f-m-PV-vivo-V1/CAttachedPVCamp12_Cell01_VR02_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS27-GCaMP6f-m-PV-vivo-V1/CAttachedPVCamp12_Cell03_VR01_real_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS27-GCaMP6f-m-PV-vivo-V1/CAttachedPVCamp13_Cell01_VR01_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_210914_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211011_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211011_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211011_cell4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211012_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211013_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211013_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211015_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211015_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211018_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211018_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211018_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211105_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211108_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211111_cell1_mXini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211111_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211111_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211111_cell4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211117_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS40-GCaMP6s-spinal-cord-excitatory/CAttached_spinal_cord_excitatory_211117_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211019_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211020_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211021_cell1_mXini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211027_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211101_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211101_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211112_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211115_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211115_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211116_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211116_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211206_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211206_cell2_mXini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211207_cell1_mXini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211207_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211208_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211210_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211210_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211210_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211213_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211213_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211217_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/DS41-GCaMP6s-spinal-cord-inhibitory/CAttached_spinal_cord_inhibitory_211217_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS00-OGB1-m-S1/CAttached_S1_OGB1_cell1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS00-OGB1-m-S1/CAttached_S1_OGB1_cell2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS00-OGB1-m-S1/CAttached_S1_OGB1_cell3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS00-OGB1-m-S1/CAttached_S1_OGB1_cell4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_102956_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_102959_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_102969_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_102978_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_102985_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103000_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103004_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103014_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103394_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103402_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103406_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103410_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103413_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103433_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103447_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103450_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103453_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103467_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103469_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103472_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103479_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103480_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS09-GCaMP6f-m-V1/CAttached_Allen_Emx1_103499_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103703_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103712_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103721_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103727_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103732_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103869_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103874_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103875_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103877_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103910_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103920_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103931_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103940_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103947_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103950_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103953_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103958_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103971_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103975_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103979_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103982_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103988_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103991_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103995_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_103999_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS10-GCaMP6f-m-V1/CAttached_Allen_Cux2f_104001_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS11-GCaMP6s-m-V1/CAttached_Allen_tetO_101084_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS11-GCaMP6s-m-V1/CAttached_Allen_tetO_102912_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS11-GCaMP6s-m-V1/CAttached_Allen_tetO_102932_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS11-GCaMP6s-m-V1/CAttached_Allen_tetO_102939_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS11-GCaMP6s-m-V1/CAttached_Allen_tetO_102941_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS11-GCaMP6s-m-V1/CAttached_Allen_tetO_102945_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102086_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102102_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102422_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102436_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102437_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102443_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102451_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102511_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102516_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102519_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102525_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102529_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102858_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102860_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102862_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102875_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102890_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_102906_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_103750_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_103753_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_103808_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_103813_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_103842_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_103844_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_103863_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-DS12-GCaMP6s-m-V1/CAttached_Allen_Cux2f_103864_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_10_batch_1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_10_batch_2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_10_batch_3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_10_batch_4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_10_batch_5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_1_batch_1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_1_batch_2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_1_batch_3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_1_batch_4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_1_batch_5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_2_batch_1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_2_batch_2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_2_batch_3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_2_batch_4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_2_batch_5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_3_batch_1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_3_batch_2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_3_batch_3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_3_batch_4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_3_batch_5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_4_batch_1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_4_batch_2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_4_batch_3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_4_batch_4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_4_batch_5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_5_batch_1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_5_batch_2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_5_batch_3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_5_batch_4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_5_batch_5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_6_batch_1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_6_batch_2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_6_batch_3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_6_batch_4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_6_batch_5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_7_batch_1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_7_batch_2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_7_batch_3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_7_batch_4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_7_batch_5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_8_batch_1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_8_batch_2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_8_batch_3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_8_batch_4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_8_batch_5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_9_batch_1_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_9_batch_2_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_9_batch_3_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_9_batch_4_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Ground_truth/X-NAOMi-GCaMP6f-simulated/CAttached_NAOMi_simulation_2020_10_04_neuron_9_batch_5_mini.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_2_Ensemble_0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_2_Ensemble_1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_2_Ensemble_2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_2_Ensemble_3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_2_Ensemble_4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_3_Ensemble_0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_3_Ensemble_1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_3_Ensemble_2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_3_Ensemble_3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_3_Ensemble_4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_4_Ensemble_0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_4_Ensemble_1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_4_Ensemble_2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_4_Ensemble_3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_4_Ensemble_4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_5_Ensemble_0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_5_Ensemble_1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_5_Ensemble_2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_5_Ensemble_3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_5_Ensemble_4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_6_Ensemble_0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_6_Ensemble_1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_6_Ensemble_2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_6_Ensemble_3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_6_Ensemble_4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_7_Ensemble_0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_7_Ensemble_1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_7_Ensemble_2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_7_Ensemble_3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_7_Ensemble_4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_8_Ensemble_0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_8_Ensemble_1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_8_Ensemble_2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_8_Ensemble_3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/Model_NoiseLevel_8_Ensemble_4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/Global_EXC_30Hz_smoothing50ms_causalkernel/config.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_2_Ensemble_0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_2_Ensemble_1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_2_Ensemble_2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_2_Ensemble_3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_2_Ensemble_4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_3_Ensemble_0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_3_Ensemble_1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_3_Ensemble_2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_3_Ensemble_3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_3_Ensemble_4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_4_Ensemble_0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_4_Ensemble_1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_4_Ensemble_2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_4_Ensemble_3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_4_Ensemble_4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_5_Ensemble_0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_5_Ensemble_1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_5_Ensemble_2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_5_Ensemble_3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_5_Ensemble_4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_6_Ensemble_0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_6_Ensemble_1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_6_Ensemble_2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_6_Ensemble_3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_6_Ensemble_4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_7_Ensemble_0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_7_Ensemble_1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_7_Ensemble_2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_7_Ensemble_3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/Model_NoiseLevel_7_Ensemble_4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/OGB_zf_pDp_7.5Hz_smoothing200ms/config.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/Pretrained_models/available_models.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/cascade2p/cascade.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/cascade2p/checks.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/cascade2p/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/cascade2p/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/cascade2p/utils_discrete_spikes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/etc/CA1_deconvolution_CASCADE.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/etc/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/etc/Evaluate_delay_online_spike_inference.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/etc/Exploration tool.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/etc/Model-based-algorithms-best-parameteres.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/etc/Model-based-algorithms-best-parameteres.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/etc/Network_activations_output.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/etc/README_Docker.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/etc/environment_mac.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/etc/requirements_mac.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cascade/setup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/convert_old_json_format.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/create_config_path_list.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/create_status_table.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/organize_files.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/samplePy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/samplePy.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/00_load_experiment.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/00_load_experiment.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/01_register_lm_trials.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/01_register_lm_trials.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/02_register_lm_trials_lm_stack.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/02_register_lm_trials_lm_stack.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/03_segment_lm_trials.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/03_segment_lm_trials.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/10_extract_lm_traces.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/10_extract_lm_traces.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/11_normalize_lm_traces_.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/12_deconvolve_lm_traces.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/12_deconvolve_lm_traces.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/13_analyze_correlation_lm_traces.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/13_analyze_correlation_lm_traces.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/20_preprocess_lm_stack.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/20_preprocess_lm_stack.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/32_find_landmarks_with_BigWarp.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/32_find_landmarks_with_BigWarp.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/config_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/config_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/sample_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/sample_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/utils/image_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/utils/image_utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,13 +650,13 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;full.screen.before.presentation.mode&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/montruth/PycharmProjects/samplePy/notebooks/implement&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/montruth/PycharmProjects/samplePy&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
     &quot;settings.editor.splitter.proportion&quot;: &quot;0.29735234&quot;,
     &quot;two.files.diff.last.used.file&quot;: &quot;D:/montruth/PycharmProjects/samplePy/data/calcium/2022-04-26/f3/sampleConfig_.json&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -60,18 +669,18 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\montruth\PycharmProjects\samplePy\notebooks\implement" />
       <recent name="D:\montruth\PycharmProjects\samplePy" />
+      <recent name="D:\montruth\PycharmProjects\samplePy\notebooks\implement" />
       <recent name="D:\montruth\PycharmProjects\samplePy\notebooks" />
       <recent name="C:\Users\montruth\PycharmProjects\samplePy\data\calcium" />
       <recent name="C:\Users\montruth\PycharmProjects\samplePy\src\image_analysis" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\montruth\PycharmProjects\samplePy\scripts" />
+      <recent name="D:\montruth\PycharmProjects\samplePy\batch" />
       <recent name="D:\montruth\PycharmProjects\samplePy\notebooks\sandbox" />
       <recent name="D:\montruth\PycharmProjects\samplePy\scripts\utils" />
-      <recent name="D:\montruth\PycharmProjects\samplePy\scripts" />
       <recent name="D:\montruth\PycharmProjects\samplePy\data\calcium\2022-04-26\f3\raw\anatomy" />
-      <recent name="D:\montruth\PycharmProjects\samplePy" />
     </key>
   </component>
   <component name="RunManager" selected="Python tests.Python tests in test_sample.py">
@@ -154,7 +763,11 @@
       <workItem from="1720796664493" duration="32960000" />
       <workItem from="1721133041695" duration="53079000" />
       <workItem from="1721811999978" duration="152570000" />
-      <workItem from="1723128223611" duration="16522000" />
+      <workItem from="1723128223611" duration="36426000" />
+      <workItem from="1723550358714" duration="2466000" />
+      <workItem from="1723559458096" duration="32042000" />
+      <workItem from="1723667562959" duration="47073000" />
+      <workItem from="1723835385551" duration="13503000" />
     </task>
     <servers />
   </component>

@@ -6,8 +6,7 @@ from scripts.config_model import Sample, Experiment
 
 class SampleDB:
     def __init__(self):
-        self.samples: Dict[str, Dict[str, Optional[str]]] = {}
-        # Define the initial set of columns
+        self.samples: Dict[str, Dict[str, Any]] = {}
         self.columns = ['sample_id', 'root_path', 'config_path', 'trials_path', 'anatomy_path', 'em_path', 'update']
 
     def get_sample(self, sample_id: str) -> Optional[Experiment]:
@@ -22,53 +21,24 @@ class SampleDB:
 
     def save(self, file_path: str):
         with open(file_path, 'w', newline='') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=self.columns)
+            fieldnames = set(self.columns)
+            for sample_data in self.samples.values():
+                fieldnames.update(sample_data.keys())
+            writer = csv.DictWriter(csvfile, fieldnames=list(fieldnames))
             writer.writeheader()
             for sample_id, sample_data in self.samples.items():
-                row = {
-                    'sample_id': sample_data["sample"].id,
-                    'root_path': sample_data["root_path"],
-                    'config_path': sample_data["config_path"],
-                    'trials_path': sample_data["trials_path"],
-                    'anatomy_path': sample_data["anatomy_path"],
-                    'em_path': sample_data["em_path"],
-                    'update': sample_data["update"]
-                }
-                # Add any extra columns
-                for col in self.columns:
-                    if col not in row:
-                        row[col] = sample_data.get(col, None)
+                row = sample_data.copy()
+                row['sample_id'] = sample_id
                 writer.writerow(row)
 
     def load(self, file_path: str):
         try:
             with open(file_path, 'r') as csvfile:
                 reader = csv.DictReader(csvfile)
+                self.columns = reader.fieldnames
                 for row in reader:
-                    sample = Sample(
-                        id=row.get('sample_id'),
-                        parents_id=row.get('parents_id'),
-                        genotype=row.get('genotype'),
-                        phenotype=row.get('phenotype'),
-                        dof=row.get('dof', ''),
-                        hpf=int(row.get('hpf', 0)),
-                        body_length_mm=int(row.get('body_length_mm', 0))
-                    )
-                    self.samples[sample.id] = {
-                        "sample": sample,
-                        "root_path": row.get('root_path', ''),
-                        "config_path": row.get('config_path', ''),
-                        "trials_path": row.get('trials_path', ''),
-                        "em_path": row.get('em_path', None),
-                        "update": row.get('update', '')
-                    }
-                    # Load any extra columns
-                    for col in row:
-                        if col not in self.samples[sample.id]:
-                            self.samples[sample.id][col] = row[col]
-                    # Update columns list
-                    if set(self.columns) != set(row.keys()):
-                        self.columns = list(row.keys())
+                    sample_id = row['sample_id']
+                    self.samples[sample_id] = row
         except FileNotFoundError:
             print(f"File {file_path} not found. Initializing empty database.")
             self.save(file_path)  # Create a new CSV file with headers
@@ -80,6 +50,14 @@ class SampleDB:
             self.columns.append(column_name)
             for sample_id in self.samples:
                 self.samples[sample_id][column_name] = default_value
+
+    def update_sample_field(self, sample_id: str, field: str, value: Any):
+        if sample_id in self.samples:
+            self.samples[sample_id][field] = value
+            if field not in self.columns:
+                self.columns.append(field)
+        else:
+            print(f"Sample {sample_id} not found in the database.")
 
     def update_column(self, column_name: str, update_function):
         if column_name in self.columns:
@@ -107,6 +85,7 @@ class SampleDB:
             config_dict['segment_paths'] = segment_paths
             return json.dumps({"experiment": config_dict}, indent=4)
         return None
+
 
     def __repr__(self):
         sample_ids = list(self.samples.keys())
