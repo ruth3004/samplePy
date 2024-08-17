@@ -1,12 +1,12 @@
 import csv
 import json
-from typing import Dict, Optional, Any
+from typing import Dict, Optional, Any, OrderedDict
 from pydantic import BaseModel
 from scripts.config_model import Sample, Experiment
 
 class SampleDB:
     def __init__(self):
-        self.samples: Dict[str, Dict[str, Any]] = {}
+        self.samples: OrderedDict[str, OrderedDict[str, Any]] = {}
         self.columns = ['sample_id', 'root_path', 'config_path', 'trials_path', 'anatomy_path', 'em_path', 'update']
 
     def get_sample(self, sample_id: str) -> Optional[Experiment]:
@@ -24,7 +24,7 @@ class SampleDB:
             fieldnames = set(self.columns)
             for sample_data in self.samples.values():
                 fieldnames.update(sample_data.keys())
-            writer = csv.DictWriter(csvfile, fieldnames=list(fieldnames))
+            writer = csv.DictWriter(csvfile, fieldnames=list(fieldnames), strict=True)
             writer.writeheader()
             for sample_id, sample_data in self.samples.items():
                 row = sample_data.copy()

@@ -50,8 +50,11 @@ def process_sample(sample_id, db_path):
         sample = exp.sample
         root_path = exp.paths.root_path
         trials_path = exp.paths.trials_path
+        anatomy_path = exp.paths.anatomy_path
+        em_path = exp.paths.em_path
         n_planes = exp.params_lm.n_planes
         n_frames = exp.params_lm.n_frames
+        n_slices = exp.params_lm.lm_stack_range
         doubling = 2 if exp.params_lm.doubling else 1
 
         # Calculating number of frames per trial
@@ -63,6 +66,7 @@ def process_sample(sample_id, db_path):
         n_trials = len(raw_trial_paths)
         exp.params_lm["n_trials"] = n_trials
         ignore_until_frame = 40 if exp.params_lm.shutter_delay_frames == None else exp.params_lm.shutter_delay_frames
+        print(f'Ignore until frame: {ignore_until_frame}')
 
         # Define the path for the preprocessed folder
         processed_folder = os.path.join(trials_path, "processed")
@@ -75,6 +79,8 @@ def process_sample(sample_id, db_path):
         ref_images_path = os.path.join(processed_folder, f"sum_raw_trials_{sample.id}.tif")
 
         # Step 5: Compute phase correlation for each frame against the reference or load existing parameters
+
+        # Load reference images
         if os.path.exists(ref_images_path):
             ref_images = imread(ref_images_path)
             print("Reference trial images loaded")
@@ -99,31 +105,44 @@ def process_sample(sample_id, db_path):
                 print(f"Processing plane {plane}")
                 for trial in range(n_trials):
                     ref_trial = ref_images[plane, 0, :, :]
-                    current_trial = ref_images[plane, trial, :, :]
-
+                    current_trial = ref_images[plane, trial, :, :]  # match_histograms(, ref_trial)
+                    '''
+                    X = phase_cross_correlation(ref_trial, current_trial, upsample_factor=1, space='real')
+                    rigid_params[plane, ii, 0] = X[0][0]  # x-displacement
+                    rigid_params[plane, ii, 1] = X[0][1]  # y-displacement
+                    total_motion[plane, ii] = np.sqrt(X[0][0] ** 2 + X[0][1] ** 2)
+                    '''
+                    # using pystackreg to align frames (https://bigwww.epfl.ch/thevenaz/turboreg/)
                     sr = StackReg(StackReg.TRANSLATION)
                     warped_trial = sr.register_transform(ref_trial, current_trial)
 
+                    # Get the transformation matrix
                     transformation_matrix = sr.get_matrix()
                     tx = transformation_matrix[0, 2]
                     ty = transformation_matrix[1, 2]
 
-                    rigid_params[plane, trial, 0] = tx
-                    rigid_params[plane, trial, 1] = ty
+                    # print(f"Translation shifts: tx = {tx}, ty = {ty}")
+
+                    rigid_params[plane, trial, 0] = tx  # x-displacement
+                    rigid_params[plane, trial, 1] = ty  # y-displacement
                     total_motion[plane, trial] = np.sqrt(tx ** 2 + ty ** 2)
 
+                    # Apply the rigid shift
                     shifted_frame = shift(current_trial, rigid_params[plane, trial], order=3, prefilter=True)
+
+                    # Match histograms to the reference frame to ensure consistent intensity
                     aligned_frames[plane, trial, :, :] = match_histograms(shifted_frame, ref_trial)
 
             # Plot total motion and shifts
             plt.figure(figsize=(12, 6))
+            plt.subplot(1, 2, 1)
             for plane in range(n_planes * doubling):
                 plt.plot(total_motion[plane, :], label=f'Plane {plane}')
             plt.title("Total Motion Over Time")
             plt.xlabel("Frame Index")
             plt.ylabel("Total Motion (Euclidean Distance)")
             plt.legend()
-
+            plt.show()
             # Get current date in yyyymmdd format
             current_date = datetime.datetime.now().strftime("%Y%m%d")
 
@@ -132,10 +151,12 @@ def process_sample(sample_id, db_path):
             plt.savefig(plot_path, dpi=300, bbox_inches='tight')
             print(f"Total motion plot saved to: {plot_path}")
 
-            plt.close()
+            plt.show()
 
             np.save(rigid_params_path, rigid_params)
             save_array_as_hyperstack_tiff(aligned_frames_path, aligned_frames)
+
+
 
         # Step 6: Compute the optical flow with reference to the first image or load existing parameters
         elastic_params_path = os.path.join(processed_folder, "elastic_params.npy")
@@ -152,6 +173,7 @@ def process_sample(sample_id, db_path):
                 ref_image = aligned_frames[plane, 0]
                 nr, nc = ref_image.shape
                 print(f"Starting plane {plane}")
+
                 for trial in range(n_trials):
                     print(f"Warping frame {trial + 1}/{n_trials}")
                     frame = aligned_frames[plane, trial, :, :]
@@ -165,24 +187,25 @@ def process_sample(sample_id, db_path):
 
             np.save(elastic_params_path, elastic_params)
             print(f"saved elastic parameters in {elastic_params_path}")
-
             elastic_corrected_path = os.path.join(processed_folder, f"sum_elastic_corrected_trials_{exp.sample.id}.tif")
             save_array_as_hyperstack_tiff(elastic_corrected_path, warped_movie)
 
         # Step 7: Apply rigid and elastic transformation to each frame of each trial
         for trial_idx, trial_path in enumerate(raw_trial_paths):
-            print(f" Processing trial {trial_idx + 1}/{n_trials}")
+            print(f"  Processing trial {trial_idx + 1}/{n_trials}")
             raw_movie = load_tiff_as_hyperstack(os.path.join(trials_path, "raw", trial_path),
                                                 n_slices=exp.params_lm.n_planes,
                                                 doubling=True)
+
             n_planes, n_frames, height, width = raw_movie.shape
             print(raw_movie.shape)
             transformed_movie = np.zeros_like(raw_movie, dtype=np.float32)
 
             for plane in range(n_planes):
-                print(f" Processing plane {plane + 1}/{n_planes}")
+                print(f"  Processing plane {plane + 1}/{n_planes}")
                 Xs, Ys = rigid_params[plane, trial_idx, 0], rigid_params[plane, trial_idx, 1]
                 v, u = elastic_params[plane, trial_idx, 0], elastic_params[plane, trial_idx, 1]
+
                 for frame in range(n_frames):
                     shifted_frame = shift(raw_movie[plane, frame, :, :].astype(np.float32), (Xs, Ys), order=3,
                                           prefilter=True)
@@ -200,7 +223,7 @@ def process_sample(sample_id, db_path):
         tree(exp)
 
         # Update the '01_register_lm_trials' checkpoint
-        sample_db.samples[sample_id]['01_register_lm_trials'] = True
+        sample_db.update_sample_field(sample_id, '01_register_lm_trials', True)
         sample_db.save(db_path)
 
         print(f"Completed processing for sample: {sample_id}")
@@ -231,11 +254,19 @@ def main():
                         default=r'\\tungsten-nas.fmi.ch\tungsten\scratch\gfriedri\montruth\sample_db.csv',
                         help="Path to the sample database CSV file")
     args = parser.parse_args()
-
     if args.sample:
-        process_sample(args.sample, args.db_path)
+        try:
+            process_sample(args.sample, args.db_path)
+        except Exception as e:
+            logging.error(f"Unhandled error in main: {str(e)}")
+            print(f"An error occurred. See log for details.")
+
     elif args.list:
-        process_samples_from_file(args.list, args.db_path)
+        try:
+            process_samples_from_file(args.list, args.db_path)
+        except Exception as e:
+            logging.error(f"Unhandled error in main: {str(e)}")
+            print(f"An error occurred. See log for details.")
 
 
 if __name__ == "__main__":

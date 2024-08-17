@@ -1,6 +1,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from scripts.sample_db import SampleDB
+import sys
+import os
+import datetime
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from sample_db import SampleDB
 
 
 def create_status_table(db_path):
@@ -69,7 +74,8 @@ def create_status_table(db_path):
     plt.tight_layout()
 
     # Save the figure
-    plt.savefig('sample_processing_status.png', dpi=300, bbox_inches='tight')
+    datetime_str = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    plt.savefig(f'{datetime_str}_sample_processing_status.png', dpi=300, bbox_inches='tight')
     plt.close()
 
     print("Status table saved as 'sample_processing_status.png'")

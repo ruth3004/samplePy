@@ -3,6 +3,69 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from typing import List, Tuple
+import h5py
+from tifffile import imread
+
+
+# Function to process and save data
+def extract_fluorescence_data(hdf5_file_path, sample_id, trial_names, processed_folder, masks_stack, n_planes,
+                              doubling):
+    with h5py.File(hdf5_file_path, 'w') as f:
+        exp_grp = f.create_group(sample_id)
+
+        all_traces, all_labels, all_planes, all_trials, all_odors, all_centroids = [], [], [], [], [], []
+
+        for trial_idx, trial_path in enumerate(trial_names):
+            movie_path = os.path.join(processed_folder, f"motion_corrected_{trial_path}")
+            movie = imread(movie_path)
+            print(f"Processing trial {trial_idx + 1}/{len(trial_names)}, shape: {movie.shape}")
+
+            trial_info = trial_path.split('_')
+            trial_num = trial_info[5][1:]
+            odor_full = trial_info[6][2:]
+            odor = odor_full[2:] if odor_full.startswith('o') else odor_full
+
+            for plane in range(n_planes * doubling):
+                plane_movie = movie[plane]
+                mask = masks_stack[plane, trial_idx, :, :]
+
+                for label in np.unique(mask):
+                    if label != 0:
+                        label_mask = mask == label
+                        fluorescence_values = plane_movie[:, label_mask].mean(axis=1)
+
+                        all_traces.append(fluorescence_values)
+                        all_labels.append(label)
+                        all_planes.append(plane)
+                        all_trials.append(trial_num)
+                        all_odors.append(odor)
+
+                        y, x = np.where(label_mask)
+                        centroid = (np.mean(y), np.mean(x))
+                        all_centroids.append(centroid)
+
+        # Save data in HDF5 file
+        exp_grp.create_dataset('raw_traces', data=np.array(all_traces))
+        exp_grp.create_dataset('lm_plane_labels', data=np.array(all_labels))
+        exp_grp.create_dataset('plane_nr', data=np.array(all_planes))
+        exp_grp.create_dataset('trial_nr', data=np.array(all_trials, dtype='S'))
+        exp_grp.create_dataset('odor', data=np.array(all_odors, dtype='S'))
+        exp_grp.create_dataset('lm_plane_centroids', data=np.array(all_centroids))
+
+        # Create a mapping group
+        mapping_grp = exp_grp.create_group('cell_mapping')
+        mapping_grp.create_dataset('neuron_ids',
+                                   data=np.array([f'n{i}' for i in range(1, len(all_labels) + 1)], dtype='S'))
+        mapping_grp.create_dataset('lm_plane_labels', data=np.array(all_labels))
+        mapping_grp.create_dataset('plane_nr', data=np.array(all_planes))
+
+    print("Fluorescence intensities calculated and saved in HDF5 file.")
+
+ # Plot extracted raw traces
+def load_hdf5_data(hdf5_file_path, sample_id):
+    with h5py.File(hdf5_file_path, 'r') as f:
+        exp_grp = f[sample_id]
+        return {key: exp_grp[key][()] for key in exp_grp.keys() if isinstance(exp_grp[key], h5py.Dataset)}
 
 def load_traces(traces_file_path):
     """

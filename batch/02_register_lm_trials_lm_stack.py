@@ -1,14 +1,27 @@
 import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import numpy as np
 import matplotlib.pyplot as plt
 from tifffile import imread
 from skimage.transform import SimilarityTransform
-from scripts.config_model import save_experiment_config, tree
 from scripts.sample_db import SampleDB
 from scripts.utils.image_utils import load_tiff_as_hyperstack, save_array_as_hyperstack_tiff, \
-    plane_detection_with_iterative_alignment
+    plane_detection_with_iterative_alignment, warp_stack_to_plane
 import argparse
+import logging
+import datetime
 
+
+def setup_logging(script_name):
+    log_folder = r'\\tungsten-nas.fmi.ch\tungsten\scratch\gfriedri\montruth\2P_RawData\log'
+    os.makedirs(log_folder, exist_ok=True)
+    current_date = datetime.now().strftime('%Y%m%d')
+    log_file = f"{current_date}_{script_name}.log"
+    log_path = os.path.join(log_folder, log_file)
+    logging.basicConfig(filename=log_path, level=logging.ERROR,
+                        format='%(asctime)s - %(levelname)s - %(message)s')
 
 def process_sample(sample_id, db_path):
     # Load the sample database
@@ -19,7 +32,7 @@ def process_sample(sample_id, db_path):
     exp = sample_db.get_sample(sample_id)
 
     # Check if this step has already been completed
-    if sample_db.samples[sample_id].get('02_register_lm_trials_lm_stack', False):
+    if sample_db.samples[sample_id].get('02_register_lm_trials_lm_stack')=="True":
         print(f"Step 02 already completed for sample {sample_id}. Skipping.")
         return
 
@@ -74,7 +87,7 @@ def process_sample(sample_id, db_path):
         plt.close()
 
     # Update the sample database
-    sample_db.samples[sample_id]['02_register_lm_trials_lm_stack'] = True
+    sample_db.update_sample_field(sample_id, '02_register_lm_trials_lm_stack', True)
     sample_db.save(db_path)
 
     print(f"Processing completed for sample: {sample_id}")
@@ -82,23 +95,40 @@ def process_sample(sample_id, db_path):
 
 def process_samples_from_file(file_path, db_path):
     with open(file_path, 'r') as f:
-        sample_ids = [line.strip() for line in f if line.strip()]
+        sample_ids = f.read().splitlines()
     for sample_id in sample_ids:
-        process_sample(sample_id, db_path)
+        try:
+            process_sample(sample_id, db_path)
+        except Exception as e:
+            logging.error(f"Unhandled error for sample {sample_id}: {str(e)}")
+            print(f"Unhandled error for sample {sample_id}. See log for details.")
+            sample_db = SampleDB()
+            sample_db.load(db_path)
+            # sample_db.update_sample_field(sample_id, '02_register_lm_trials_lm_stack', "Failed")
+            # sample_db.save(db_path)
 
 def main():
     parser = argparse.ArgumentParser(description="Process samples for step 02")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-s", "--sample", help="Single sample ID to process")
-    group.add_argument("-f", "--file", help="Path to text file containing sample IDs")
+    group.add_argument("-l", "--list", help="Path to text file containing sample IDs")
     parser.add_argument("--db_path", default=r'\\tungsten-nas.fmi.ch\tungsten\scratch\gfriedri\montruth\sample_db.csv',
                         help="Path to the sample database CSV file")
     args = parser.parse_args()
 
     if args.sample:
-        process_sample(args.sample, args.db_path)
-    elif args.file:
-        process_samples_from_file(args.file, args.db_path)
+        try:
+            process_sample(args.sample, args.db_path)
+        except Exception as e:
+            logging.error(f"Unhandled error in main: {str(e)}")
+            print(f"An error occurred. See log for details.")
+
+    elif args.list:
+        try:
+            process_samples_from_file(args.list, args.db_path)
+        except Exception as e:
+            logging.error(f"Unhandled error in main: {str(e)}")
+            print(f"An error occurred. See log for details.")
 
 if __name__ == "__main__":
     main()

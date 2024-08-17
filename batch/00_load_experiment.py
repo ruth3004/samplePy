@@ -1,7 +1,8 @@
 import sys
 import os
 import argparse
-from typing import List, Dict, Any
+from typing import List, Dict, Any, OrderedDict
+
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -102,7 +103,7 @@ def process_config(config_file_path: str, db_file_path: str, update_all: bool) -
         sample_db.samples[sample.id] = sample_data
 
         # Update the '00_load_experiment' step to True
-        sample_db.samples[sample.id]['00_load_experiment'] = True
+        sample_db.update_sample_field(sample.id, '00_load_experiment', True)
         sample_db.save(db_file_path)
         print(sample_db.samples[sample.id])
         print(f"Sample database saved to {db_file_path}.")
@@ -110,7 +111,6 @@ def process_config(config_file_path: str, db_file_path: str, update_all: bool) -
 
     except Exception as e:
         print(f"Error processing config file {config_file_path}: {str(e)}")
-
 
 
 def main(config_list_file: str, db_file_path: str, update_all: bool) -> None:
@@ -128,10 +128,11 @@ def main(config_list_file: str, db_file_path: str, update_all: bool) -> None:
     for config_file in config_files:
         process_config(config_file, db_file_path, update_all)
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process config files and update sample database.")
     parser.add_argument("config_list_file", help="File containing list of config file paths")
-    parser.add_argument("--db_file_path", default="sample_db.csv", help="Path to the sample database CSV file")
+    parser.add_argument("--db_file_path", default=r"\\tungsten-nas.fmi.ch\tungsten\scratch\gfriedri\montruth\sample_db.csv", help="Path to the sample database CSV file")
     parser.add_argument("--update_all", action="store_true", help="Whether to update all samples or not.")
     args = parser.parse_args()
 
