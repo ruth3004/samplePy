@@ -142,7 +142,7 @@ def process_sample(sample_id, db_path):
             plt.xlabel("Frame Index")
             plt.ylabel("Total Motion (Euclidean Distance)")
             plt.legend()
-            plt.show()
+            #plt.show()
             # Get current date in yyyymmdd format
             current_date = datetime.datetime.now().strftime("%Y%m%d")
 
@@ -151,7 +151,7 @@ def process_sample(sample_id, db_path):
             plt.savefig(plot_path, dpi=300, bbox_inches='tight')
             print(f"Total motion plot saved to: {plot_path}")
 
-            plt.show()
+            #plt.show()
 
             np.save(rigid_params_path, rigid_params)
             save_array_as_hyperstack_tiff(aligned_frames_path, aligned_frames)

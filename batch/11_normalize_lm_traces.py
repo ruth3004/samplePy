@@ -1,105 +1,147 @@
-import numpy as np
+# 11_normalize_lm_traces_batch.py
 import os
-from tifffile import imread
-import h5py
-import matplotlib.pyplot as plt
-from scripts.sample_db import SampleDB
+import sys
 import argparse
+import logging
+from datetime import datetime
+import h5py
+import numpy as np
+import matplotlib.pyplot as plt
 
-def load_data(hdf5_file_path, sample_id):
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from scripts.sample_db import SampleDB
+from scripts.utils.traces_utils import load_hdf5_data, calculate_dff, plot_average_traces_by_group
+
+def setup_logging(script_name):
+    log_folder = r'\\tungsten-nas.fmi.ch\tungsten\scratch\gfriedri\montruth\2P_RawData\log'
+    os.makedirs(log_folder, exist_ok=True)
+    current_date = datetime.now().strftime('%Y%m%d')
+    log_file = f"{current_date}_{script_name}.log"
+    log_path = os.path.join(log_folder, log_file)
+    logging.basicConfig(filename=log_path, level=logging.ERROR,
+                        format='%(asctime)s - %(levelname)s - %(message)s')
+
+def process_sample(sample_id, db_path):
     try:
-        with h5py.File(hdf5_file_path, 'r') as f:
-            if sample_id not in f:
-                raise KeyError(f"Sample ID '{sample_id}' not found in the HDF5 file.")
-            exp_grp = f[sample_id]
-            return {key: exp_grp[key][()] for key in exp_grp.keys() if isinstance(exp_grp[key], h5py.Dataset)}
-    except IOError:
-        print(f"Error: Unable to read file '{hdf5_file_path}'.")
-        return None
+        # Load the sample database
+        sample_db = SampleDB()
+        sample_db.load(db_path)
 
-def calculate_dff(traces, baseline_frames=[50,100]):
-    f0 = np.mean(traces[:, baseline_frames[0]:baseline_frames[1]], axis=1)
-    dff = (traces - f0[:, np.newaxis]) / f0[:, np.newaxis]
-    return dff
+        # Load experiment configuration
+        exp = sample_db.get_sample(sample_id)
 
-def plot_traces(traces, labels, title, ylabel, n_examples=3):
-    plt.figure(figsize=(10, 6))
-    for i in range(n_examples):
-        plt.plot(traces[i], label=f'Label {labels[i]}')
-    plt.title(title)
-    plt.xlabel('Time (frames)')
-    plt.ylabel(ylabel)
-    plt.legend()
-    plt.show()
+        # Check if this step has already been completed
+        if sample_db.samples[sample_id].get('11_normalize_lm_traces') == "True":
+            print(f"Step 11_normalize_lm_traces already completed for sample {sample_id}. Skipping.")
+            return
 
-def plot_average_traces_by_group(traces, groups, title, ylabel):
-    unique_groups = np.unique(groups)
-    plt.figure(figsize=(10, 6))
-    for group in unique_groups:
-        plt.plot(traces[groups == group].mean(axis=0), label=group.decode('utf-8'))
-    plt.legend()
-    plt.title(title)
-    plt.xlabel('Time (frames)')
-    plt.ylabel(ylabel)
-    plt.show()
+        # Making shortcuts of sample parameters/information
+        trials_path = exp.paths.trials_path
 
-def save_dff_traces(hdf5_file_path, sample_id, dff_traces):
-    try:
+        # Create folder for saving fluorescence data
+        traces_folder = os.path.join(trials_path, "traces")
+        os.makedirs(traces_folder, exist_ok=True)
+
+        hdf5_file_path = os.path.join(traces_folder, f'{exp.sample.id}_fluorescence_data.h5')
+
+        # Load data
+        data = load_hdf5_data(hdf5_file_path, exp.sample.id)
+
+        # Calculate df/f traces
+        dff_traces = calculate_dff(data['raw_traces'], baseline_frames=[50, 100])
+
+        # Create report folder
+        report_folder = os.path.join(exp.paths.root_path, "report")
+        os.makedirs(report_folder, exist_ok=True)
+
+
+        # Plot the first three df/f traces
+        plt.figure(figsize=(10, 6))
+        for i in range(3):
+            plt.plot(dff_traces[i], label=f'Label {data["lm_plane_labels"][i]}')
+
+        plt.title('df/f Traces')
+        plt.xlabel('Time (frames)')
+        plt.ylabel('df/f')
+        plt.legend()
+
+        # Save the first plot
+        first_plot_path = os.path.join(report_folder, f'11_normalize_lm_traces_first_dff_traces_{exp.sample.id}.png')
+        plt.savefig(first_plot_path)
+        plt.close()  # Close the plot to free up memory
+
+        # Plot average df/f traces for each odor
+        odors_name = np.unique(data['odor'])
+
+        plt.figure(figsize=(10, 6))
+        for odor in odors_name:
+            plt.plot(dff_traces[data['odor'] == odor].mean(axis=0), label=odor.decode('utf-8'))
+        plt.legend()
+        plt.title('Average df/f Traces by Odor')
+        plt.xlabel('Time (frames)')
+        plt.ylabel('df/f')
+
+        # Save the fourth plot
+        second_plot_path = os.path.join(report_folder, f'11_normalize_lm_traces_average_dff_traces_{exp.sample.id}.png')
+        plt.savefig(second_plot_path)
+        plt.close()  # Close the plot to free up memory
+
+        print(f"Plots saved in {report_folder}")
+
+        # Save df/f traces to HDF5 file
         with h5py.File(hdf5_file_path, 'r+') as f:
             exp_grp = f[sample_id]
             if 'dff_traces' in exp_grp:
-                overwrite = input("'dff_traces' already exists. Do you want to overwrite it? (y/n): ")
-                if overwrite.lower() != 'y':
-                    print("Skipping saving dff_traces.")
-                    return
                 del exp_grp['dff_traces']
             exp_grp.create_dataset('dff_traces', data=dff_traces)
+
         print("df/f traces calculated and saved in HDF5 file.")
-    except IOError:
-        print(f"Error: Unable to write to file '{hdf5_file_path}'.")
 
-def main(db_path, sample_id):
-    # Load the sample database
-    sample_db = SampleDB()
-    sample_db.load(db_path)
-    print(sample_db)
+        # Update the sample database
+        sample_db.update_sample_field(sample_id, '11_normalize_lm_traces', True)
+        sample_db.save(db_path)
 
-    # Loading experiment
-    exp = sample_db.get_sample(sample_id)
-    print(exp.sample.id)
+        print(f"Processing completed for sample: {sample_id}")
 
-    # Create folder for saving fluorescence data
-    traces_folder = os.path.join(exp.paths.trials_path, "traces")
-    os.makedirs(traces_folder, exist_ok=True)
+    except Exception as e:
+        logging.error(f"Error processing sample {sample_id}: {str(e)}")
+        print(f"Error processing sample {sample_id}. See log for details.")
 
-    hdf5_file_path = os.path.join(traces_folder, f'{exp.sample.id}_fluorescence_data.h5')
+def process_samples_from_file(file_path, db_path):
+    with open(file_path, 'r') as f:
+        sample_ids = f.read().splitlines()
+    for sample_id in sample_ids:
+        try:
+            process_sample(sample_id, db_path)
+        except Exception as e:
+            logging.error(f"Unhandled error for sample {sample_id}: {str(e)}")
+            print(f"Unhandled error for sample {sample_id}. See log for details.")
 
-    data = load_data(hdf5_file_path, exp.sample.id)
-    if data is None:
-        return
-
-    # Calculate df/f traces
-    dff_traces = calculate_dff(data['raw_traces'], baseline_frames=[50,100])
-
-    # Plot example raw traces
-    plot_traces(data['raw_traces'], data['lm_plane_labels'], 'Fluorescence Intensity Traces', 'Fluorescence Intensity')
-
-    # Plot example df/f traces
-    plot_traces(dff_traces, data['lm_plane_labels'], 'df/f Traces', 'df/f')
-
-    # Save df/f traces to HDF5 file
-    save_dff_traces(hdf5_file_path, sample_id, dff_traces)
-
-    # Plot average raw traces for each odor
-    plot_average_traces_by_group(data['raw_traces'], data['odor'], 'Average Fluorescence Intensity Traces by Odor', 'Fluorescence Intensity')
-
-    # Plot average df/f traces for each odor
-    plot_average_traces_by_group(dff_traces, data['odor'], 'Average df/f Traces by Odor', 'df/f')
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Process and analyze fluorescence data.")
-    parser.add_argument("--db_path", default=r'\\tungsten-nas.fmi.ch\tungsten\scratch\gfriedri\montruth\sample_db.csv', help="Path to the sample database CSV file")
-    parser.add_argument("--sample_id", default='20220427_RM0008_126hpf_fP3_f3', help="Sample ID to process")
+def main():
+    parser = argparse.ArgumentParser(description="Normalize LM traces")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("-s", "--sample", help="Single sample ID to process")
+    group.add_argument("-l", "--list", help="Path to text file containing sample IDs")
+    parser.add_argument("--db_path", default=r'\\tungsten-nas.fmi.ch\tungsten\scratch\gfriedri\montruth\sample_db.csv',
+                        help="Path to the sample database CSV file")
     args = parser.parse_args()
 
-    main(args.db_path, args.sample_id)
+    setup_logging('11_normalize_lm_traces')
+
+    if args.sample:
+        try:
+            process_sample(args.sample, args.db_path)
+        except Exception as e:
+            logging.error(f"Unhandled error in main: {str(e)}")
+            print(f"An error occurred. See log for details.")
+
+    elif args.list:
+        try:
+            process_samples_from_file(args.list, args.db_path)
+        except Exception as e:
+            logging.error(f"Unhandled error in main: {str(e)}")
+            print(f"An error occurred. See log for details.")
+
+if __name__ == "__main__":
+    main()

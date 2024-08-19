@@ -8,10 +8,11 @@ import argparse
 import logging
 from datetime import datetime
 from scripts.sample_db import SampleDB
+from scripts.utils.traces_utils import extract_fluorescence_data, load_hdf5_data
 
 import numpy as np
+import matplotlib.pyplot as plt
 
-import h5py
 from tifffile import imread
 
 
@@ -25,60 +26,6 @@ def setup_logging(script_name):
                         format='%(asctime)s - %(levelname)s - %(message)s')
 
 
-# Function to process and save data
-def extract_fluorescence_data(hdf5_file_path, sample_id, trial_names, processed_folder, masks_stack, n_planes,
-                              doubling):
-    with h5py.File(hdf5_file_path, 'w') as f:
-        exp_grp = f.create_group(sample_id)
-
-        all_traces, all_labels, all_planes, all_trials, all_odors, all_centroids = [], [], [], [], [], []
-
-        for trial_idx, trial_path in enumerate(trial_names):
-            movie_path = os.path.join(processed_folder, f"motion_corrected_{trial_path}")
-            movie = imread(movie_path)
-            print(f"Processing trial {trial_idx + 1}/{len(trial_names)}, shape: {movie.shape}")
-
-            trial_info = trial_path.split('_')
-            trial_num = trial_info[5][1:]
-            odor_full = trial_info[6][2:]
-            odor = odor_full[2:] if odor_full.startswith('o') else odor_full
-
-            for plane in range(n_planes * doubling):
-                plane_movie = movie[plane]
-                mask = masks_stack[plane, trial_idx, :, :]
-
-                for label in np.unique(mask):
-                    if label != 0:
-                        label_mask = mask == label
-                        fluorescence_values = plane_movie[:, label_mask].mean(axis=1)
-
-                        all_traces.append(fluorescence_values)
-                        all_labels.append(label)
-                        all_planes.append(plane)
-                        all_trials.append(trial_num)
-                        all_odors.append(odor)
-
-                        y, x = np.where(label_mask)
-                        centroid = (np.mean(y), np.mean(x))
-                        all_centroids.append(centroid)
-
-        # Save data in HDF5 file
-        exp_grp.create_dataset('raw_traces', data=np.array(all_traces))
-        exp_grp.create_dataset('lm_plane_labels', data=np.array(all_labels))
-        exp_grp.create_dataset('plane_nr', data=np.array(all_planes))
-        exp_grp.create_dataset('trial_nr', data=np.array(all_trials, dtype='S'))
-        exp_grp.create_dataset('odor', data=np.array(all_odors, dtype='S'))
-        exp_grp.create_dataset('lm_plane_centroids', data=np.array(all_centroids))
-
-        # Create a mapping group
-        mapping_grp = exp_grp.create_group('cell_mapping')
-        mapping_grp.create_dataset('neuron_ids',
-                                   data=np.array([f'n{i}' for i in range(1, len(all_labels) + 1)], dtype='S'))
-        mapping_grp.create_dataset('lm_plane_labels', data=np.array(all_labels))
-        mapping_grp.create_dataset('plane_nr', data=np.array(all_planes))
-
-    print("Fluorescence intensities calculated and saved in HDF5 file.")
-
 def process_sample(sample_id, db_path):
     try:
         # Load the sample database
@@ -89,7 +36,7 @@ def process_sample(sample_id, db_path):
         exp = sample_db.get_sample(sample_id)
 
         # Check if this step has already been completed
-        if sample_db.samples[sample_id].get('10_extract_lm_traces', False):
+        if sample_db.samples[sample_id].get('10_extract_lm_traces') == "True":
             print(f"Step 10_extract_lm_traces already completed for sample {sample_id}. Skipping.")
             return
 
@@ -115,8 +62,49 @@ def process_sample(sample_id, db_path):
 
         hdf5_file_path = os.path.join(traces_folder, f'{exp.sample.id}_fluorescence_data.h5')
 
+        # Process and save data
         extract_fluorescence_data(hdf5_file_path, sample_id, trial_names, processed_folder, masks_stack, n_planes,
                                   doubling)
+
+        # Load data
+        data = load_hdf5_data(hdf5_file_path, sample_id)
+
+        # Create report folder
+        report_folder = os.path.join(exp.paths.root_path, "report")
+        os.makedirs(report_folder, exist_ok=True)
+
+
+        # Plot the first three traces
+        plt.figure(figsize=(10, 6))
+        for i in range(3):
+            plt.plot(data['raw_traces'][i], label=f'Label {data["lm_plane_labels"][i]}')
+
+        plt.title('Fluorescence Intensity Traces')
+        plt.xlabel('Time (frames)')
+        plt.ylabel('Fluorescence Intensity')
+        plt.legend()
+
+        # Save the first plot
+        first_plot_path = os.path.join(report_folder, f'10_extract_lm_traces_first_raw_traces_{exp.sample.id}.png')
+        plt.savefig(first_plot_path)
+        plt.close()  # Close the plot to free up memory
+
+        # Plot average traces for each odor
+        odors_name = np.unique(data['odor'])
+        plt.figure(figsize=(10, 6))
+        for odor in odors_name:
+            plt.plot(data['raw_traces'][data['odor'] == odor].mean(axis=0), label=odor.decode('utf-8'))
+        plt.legend()
+        plt.title('Average Fluorescence Intensity Traces by Odor')
+        plt.xlabel('Time (frames)')
+        plt.ylabel('Fluorescence Intensity')
+
+        # Save the second plot
+        second_plot_path = os.path.join(report_folder, f'10_extract_lm_traces_average_raw_traces_{exp.sample.id}.png')
+        plt.savefig(second_plot_path)
+        plt.close()  # Close the plot to free up memory
+
+        print(f"Plots saved in {report_folder}")
 
         # Update the sample database
         sample_db.update_sample_field(sample_id, '10_extract_lm_traces', True)
@@ -127,6 +115,7 @@ def process_sample(sample_id, db_path):
     except Exception as e:
         logging.error(f"Error processing sample {sample_id}: {str(e)}")
         print(f"Error processing sample {sample_id}. See log for details.")
+
 
 def process_samples_from_file(file_path, db_path):
     with open(file_path, 'r') as f:

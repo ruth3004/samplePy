@@ -67,6 +67,31 @@ def load_hdf5_data(hdf5_file_path, sample_id):
         exp_grp = f[sample_id]
         return {key: exp_grp[key][()] for key in exp_grp.keys() if isinstance(exp_grp[key], h5py.Dataset)}
 
+def calculate_dff(traces, baseline_frames=[50,100]):
+    f0 = np.mean(traces[:, baseline_frames[0]:baseline_frames[1]], axis=1)
+    dff = (traces - f0[:, np.newaxis]) / f0[:, np.newaxis]
+    return dff
+
+def plot_traces(traces, labels, title, ylabel, n_examples=3):
+    plt.figure(figsize=(10, 6))
+    for i in range(n_examples):
+        plt.plot(traces[i], label=f'Label {labels[i]}')
+    plt.title(title)
+    plt.xlabel('Time (frames)')
+    plt.ylabel(ylabel)
+    plt.legend()
+
+def plot_average_traces_by_group(traces, groups, title, ylabel):
+    unique_groups = np.unique(groups)
+    plt.figure(figsize=(10, 6))
+    for group in unique_groups:
+        plt.plot(traces[groups == group].mean(axis=0), label=group.decode('utf-8'))
+    plt.legend()
+    plt.title(title)
+    plt.xlabel('Time (frames)')
+    plt.ylabel(ylabel)
+    plt.show()
+
 def load_traces(traces_file_path):
     """
     Load fluorescence traces from a .npy file.

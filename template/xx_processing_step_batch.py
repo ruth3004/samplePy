@@ -29,7 +29,7 @@ def process_sample(sample_id, db_path):
         exp = sample_db.get_sample(sample_id)
 
         # Check if this step has already been completed
-        if sample_db.samples[sample_id].get('[Step Number]_[Step Name]', False):
+        if sample_db.samples[sample_id].get('[Step Number]_[Step Name]')=="True":
             print(f"Step [Step Number] already completed for sample {sample_id}. Skipping.")
             return
 

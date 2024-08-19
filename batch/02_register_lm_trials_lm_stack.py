@@ -102,10 +102,7 @@ def process_samples_from_file(file_path, db_path):
         except Exception as e:
             logging.error(f"Unhandled error for sample {sample_id}: {str(e)}")
             print(f"Unhandled error for sample {sample_id}. See log for details.")
-            sample_db = SampleDB()
-            sample_db.load(db_path)
-            # sample_db.update_sample_field(sample_id, '02_register_lm_trials_lm_stack', "Failed")
-            # sample_db.save(db_path)
+
 
 def main():
     parser = argparse.ArgumentParser(description="Process samples for step 02")
