@@ -3,7 +3,10 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')  # Set this at the beginning of your script
 import matplotlib.pyplot as plt
+plt.ioff()  # Turn off interactive mode
 from tifffile import imread
 from skimage.transform import SimilarityTransform
 from scripts.sample_db import SampleDB
@@ -12,6 +15,8 @@ from scripts.utils.image_utils import load_tiff_as_hyperstack, save_array_as_hyp
 import argparse
 import logging
 import datetime
+
+
 
 
 def setup_logging(script_name):
@@ -87,6 +92,8 @@ def process_sample(sample_id, db_path):
         plt.close()
 
     # Update the sample database
+    sample_db = SampleDB()
+    sample_db.load(db_path)
     sample_db.update_sample_field(sample_id, '02_register_lm_trials_lm_stack', True)
     sample_db.save(db_path)
 

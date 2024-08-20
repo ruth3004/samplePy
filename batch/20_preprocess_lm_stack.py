@@ -93,7 +93,9 @@ def process_sample(sample_id, db_path):
                 logging.error(f"Error processing sample {sample_id}: {str(e)}")
                 print(f"Error processing sample {sample_id}. See log for details.")
 
-        # Update the '01_register_lm_trials' checkpoint
+        # Update the sample database
+        sample_db = SampleDB()
+        sample_db.load(db_path)
         sample_db.update_sample_field(sample_id, '20_preprocess_lm_stack', True)
         sample_db.save(db_path)
 

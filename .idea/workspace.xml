@@ -5,16 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66d86078-e06b-4e01-8448-8c72b5e5da0b" name="Changes" comment="rough folder structure of samplePy with motion correction">
-      <change afterPath="$PROJECT_DIR$/batch/20_preprocess_lm_stack.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/12_deconvolve_lm_traces.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/13_analyze_correlation_lm_traces.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/batch/01_register_lm_trials.py" beforeDir="false" afterPath="$PROJECT_DIR$/batch/01_register_lm_trials.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/batch/02_register_lm_trials_lm_stack.py" beforeDir="false" afterPath="$PROJECT_DIR$/batch/02_register_lm_trials_lm_stack.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/10_extract_lm_traces.py" beforeDir="false" afterPath="$PROJECT_DIR$/batch/10_extract_lm_traces.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/11_normalize_lm_traces.py" beforeDir="false" afterPath="$PROJECT_DIR$/batch/11_normalize_lm_traces.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/10_extract_lm_traces.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/10_extract_lm_traces.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/11_normalize_lm_traces.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/11_normalize_lm_traces.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/20_preprocess_lm_stack.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/20_preprocess_lm_stack.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/utils/traces_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/utils/traces_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/03_segment_lm_trials.py" beforeDir="false" afterPath="$PROJECT_DIR$/batch/03_segment_lm_trials.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/20_preprocess_lm_stack.py" beforeDir="false" afterPath="$PROJECT_DIR$/batch/20_preprocess_lm_stack.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/03_segment_lm_trials.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/03_segment_lm_trials.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/12_deconvolve_lm_traces.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/12_deconvolve_lm_traces.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/13_analyze_correlation_lm_traces.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/13_analyze_correlation_lm_traces.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/register_lm_trials_lm_stack.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/xx_processing_step.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/template/xx_processing_step.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/template/xx_processing_step_batch.py" beforeDir="false" afterPath="$PROJECT_DIR$/template/xx_processing_step_batch.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -169,7 +171,7 @@
       <workItem from="1723559458096" duration="32042000" />
       <workItem from="1723667562959" duration="47073000" />
       <workItem from="1723835385551" duration="38370000" />
-      <workItem from="1723919107368" duration="17278000" />
+      <workItem from="1723919107368" duration="42273000" />
     </task>
     <servers />
   </component>
