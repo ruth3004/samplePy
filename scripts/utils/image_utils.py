@@ -1,17 +1,17 @@
+import os
 import numpy as np
-from PIL import Image
+from pathlib import Path
+
 import tifffile
 import matplotlib.pyplot as plt
-from pathlib import Path
 from matplotlib.gridspec import GridSpec, GridSpecFromSubplotSpec
-from skimage import feature
-from skimage.exposure import match_histograms
 from scipy.interpolate import griddata
 import random
-import os
 
+from skimage import feature
+from skimage.measure import manders_coloc_coeff, regionprops, label
+from skimage.filters import threshold_otsu
 from skimage.transform import SimilarityTransform
-
 from skimage.exposure import match_histograms, equalize_adapthist, rescale_intensity
 
 def extend_stack(stack, margin):
@@ -626,3 +626,39 @@ def plane_detection_with_iterative_alignment(plane, stack, equalize=True, binnin
     plt.show()
 
     return current_tform, all_transformation_matrices
+
+
+def calculate_manders_coefficient_3d(mask_stack, channel_stack):
+    # Label the mask stack
+    labels = label(mask_stack)
+    props = regionprops(labels)
+
+    # Initiate Manders' coefficients dictionary and Manders' coefficient based colored stack
+    manders_results = {}
+    mask_colored_stack = np.zeros_like(anatomy_mask, dtype=float)
+
+    # Binarize channel stack
+    channel_threshold = threshold_otsu(channel_stack)
+    binary_channel_stack = channel_stack > channel_threshold
+
+    # Binarize the mask (assuming it's already binary)
+    binary_mask_stack = anatomy_mask > 0
+
+    for prop in props:
+        # Get the bounding box of the region
+        minr, minc, minz, maxr, maxc, maxz = prop.bbox
+
+        # Extract the corresponding region from the red channel and the mask
+        channel_region = binary_channel_stack[minr:maxr, minc:maxc, minz:maxz]
+        mask_region = binary_mask_stack[minr:maxr, minc:maxc, minz:maxz]
+
+        # Calculate Manders' colocalization coefficients
+        manders_coeff = manders_coloc_coeff(mask_region, channel_region)
+
+        # Store the results
+        manders_results[prop.label] = manders_coeff
+
+        # Color the stack based on the Manders' coefficients
+        mask_colored_stack[minr:maxr, minc:maxc, minz:maxz][mask_region] = manders_coeff
+
+    return manders_results, mask_colored_stack

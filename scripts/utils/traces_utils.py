@@ -45,6 +45,7 @@ def extract_fluorescence_data(hdf5_file_path, sample_id, trial_names, processed_
                         all_centroids.append(centroid)
 
         # Save data in HDF5 file
+
         exp_grp.create_dataset('raw_traces', data=np.array(all_traces))
         exp_grp.create_dataset('lm_plane_labels', data=np.array(all_labels))
         exp_grp.create_dataset('plane_nr', data=np.array(all_planes))

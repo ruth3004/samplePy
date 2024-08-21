@@ -5,19 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66d86078-e06b-4e01-8448-8c72b5e5da0b" name="Changes" comment="rough folder structure of samplePy with motion correction">
-      <change afterPath="$PROJECT_DIR$/batch/12_deconvolve_lm_traces.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/batch/13_analyze_correlation_lm_traces.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/21_register_lm_stack_to_ref_stack.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/batch/23_extract_marker_from_channel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proofreading/01_register_lm_trials.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proofreading/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proofreading/proofreading_base.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/template/xx_profreading_step.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/todo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/samplePy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/samplePy.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/01_register_lm_trials.py" beforeDir="false" afterPath="$PROJECT_DIR$/batch/01_register_lm_trials.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/02_register_lm_trials_lm_stack.py" beforeDir="false" afterPath="$PROJECT_DIR$/batch/02_register_lm_trials_lm_stack.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/03_segment_lm_trials.py" beforeDir="false" afterPath="$PROJECT_DIR$/batch/03_segment_lm_trials.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/batch/20_preprocess_lm_stack.py" beforeDir="false" afterPath="$PROJECT_DIR$/batch/20_preprocess_lm_stack.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/03_segment_lm_trials.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/03_segment_lm_trials.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/12_deconvolve_lm_traces.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/12_deconvolve_lm_traces.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/11_normalize_lm_traces.py" beforeDir="false" afterPath="$PROJECT_DIR$/batch/11_normalize_lm_traces.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/batch/13_analyze_correlation_lm_traces.py" beforeDir="false" afterPath="$PROJECT_DIR$/batch/13_analyze_correlation_lm_traces.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notebooks/13_analyze_correlation_lm_traces.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/13_analyze_correlation_lm_traces.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/register_lm_trials_lm_stack.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/xx_processing_step.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/template/xx_processing_step.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/xx_processing_step_batch.py" beforeDir="false" afterPath="$PROJECT_DIR$/template/xx_processing_step_batch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/23_extract_marker_from_channel.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/23_extract_marker_from_channel.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/segmentation_proofreading_tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/segmentation_proofreading_tool.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/utils/image_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/utils/image_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/utils/traces_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/utils/traces_utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,30 +50,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python tests.Python tests in test_sample.py.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests in tests.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;full.screen.before.presentation.mode&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/montruth/PycharmProjects/samplePy&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;settings.editor.splitter.proportion&quot;: &quot;0.29735234&quot;,
-    &quot;two.files.diff.last.used.file&quot;: &quot;D:/montruth/PycharmProjects/samplePy/data/calcium/2022-04-26/f3/sampleConfig_.json&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests in test_sample.py.executor": "Debug",
+    "Python tests.Python tests in tests.executor": "Run",
+    "Python.01_register_lm_trials.executor": "Run",
+    "Python.segmentation_proofreading_tool.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "full.screen.before.presentation.mode": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/montruth/PycharmProjects/samplePy",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "settings.editor.splitter.proportion": "0.29735234",
+    "two.files.diff.last.used.file": "D:/montruth/PycharmProjects/samplePy/data/calcium/2022-04-26/f3/sampleConfig_.json",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;Python&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "Python"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\montruth\PycharmProjects\samplePy" />
@@ -86,7 +92,53 @@
       <recent name="D:\montruth\PycharmProjects\samplePy\data\calcium\2022-04-26\f3\raw\anatomy" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests in test_sample.py">
+  <component name="RunManager" selected="Python.01_register_lm_trials">
+    <configuration name="01_register_lm_trials" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="samplePy" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/proofreading" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/proofreading/01_register_lm_trials.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="segmentation_proofreading_tool" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="samplePy" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/segmentation_proofreading_tool.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Python tests in test_sample.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="samplePy" />
       <option name="ENV_FILES" value="" />
@@ -120,11 +172,15 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.01_register_lm_trials" />
+      <item itemvalue="Python.segmentation_proofreading_tool" />
       <item itemvalue="Python tests.Python tests in test_sample.py" />
       <item itemvalue="Python tests.Python tests in tests" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.01_register_lm_trials" />
+        <item itemvalue="Python.segmentation_proofreading_tool" />
         <item itemvalue="Python tests.Python tests in test_sample.py" />
         <item itemvalue="Python tests.Python tests in tests" />
       </list>
@@ -171,7 +227,7 @@
       <workItem from="1723559458096" duration="32042000" />
       <workItem from="1723667562959" duration="47073000" />
       <workItem from="1723835385551" duration="38370000" />
-      <workItem from="1723919107368" duration="42273000" />
+      <workItem from="1723919107368" duration="73675000" />
     </task>
     <servers />
   </component>
@@ -212,5 +268,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/samplePy$.coverage" NAME=" Coverage Results" MODIFIED="1717492213634" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/samplePy$segmentation_proofreading_tool.coverage" NAME="segmentation_proofreading_tool Coverage Results" MODIFIED="1724154544951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/samplePy$01_register_lm_trials.coverage" NAME="01_register_lm_trials Coverage Results" MODIFIED="1724161146327" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/proofreading" />
   </component>
 </project>
