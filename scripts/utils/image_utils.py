@@ -1,13 +1,16 @@
 import os
 import numpy as np
 from pathlib import Path
-import tqdm
+from tqdm import tqdm
+import logging
 
 import tifffile
 import json
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec, GridSpecFromSubplotSpec
 from scipy.interpolate import griddata
+from scipy.signal import medfilt
+
 import random
 
 from skimage import feature
@@ -672,7 +675,9 @@ def plot_image_correlation(tiles, stack, best_plane_matrix, all_correlations_mat
             smoothed_correlations = medfilt(correlations, kernel_size=7)
             ax.plot(range(len(correlations)), correlations, alpha=0.5, label='Raw')
             ax.plot(range(len(smoothed_correlations)), smoothed_correlations, label='Smoothed')
-            ax.scatter(best_plane_matrix[row, col][0], correlations[best_plane_matrix[row, col][0]],
+
+            max_corr_index = np.argmax(smoothed_correlations)
+            ax.scatter(max_corr_index, smoothed_correlations[max_corr_index],
                        color='red', s=50, zorder=5, label='Best match')
             ax.set_ylim(global_y_min, global_y_max)
             ax.set_title(f'Correlation ({row},{col})')
@@ -1116,3 +1121,85 @@ def calculate_manders_coefficient_3d(mask_stack, channel_stack):
 
     return manders_results, mask_colored_stack
 
+# Similarity visualization tools
+
+def local_similarity_map(img1, img2, window_size=7):
+    similarity = np.zeros_like(img1, dtype=float)
+    pad = window_size//2
+    padded1 = np.pad(img1, pad)
+    padded2 = np.pad(img2, pad)
+
+    for i in range(img1.shape[0]):
+        for j in range(img1.shape[1]):
+            window1 = padded1[i:i+window_size, j:j+window_size]
+            window2 = padded2[i:i+window_size, j:j+window_size]
+            similarity[i,j] = np.corrcoef(window1.flat, window2.flat)[0,1]
+
+    return similarity
+
+
+def create_difference_maps(img1, img2):
+    # Difference map
+    diff = np.abs(img1 - img2)
+
+    # Heat map using normalized cross-correlation
+    heat_map = feature.match_template(img1, img2, pad_input=True)
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 6))
+    im1 = ax1.imshow(diff, cmap='RdBu_r')
+    ax1.set_title('Difference Map')
+    plt.colorbar(im1, ax=ax1)
+
+    im2 = ax2.imshow(heat_map, cmap='hot')
+    ax2.set_title('Heat Map')
+    plt.colorbar(im2, ax=ax2)
+
+
+def create_checkerboard(img1, img2, tile_size=50):
+    checker = np.zeros_like(img1)
+    for i in range(0, img1.shape[0], tile_size):
+        for j in range(0, img1.shape[1], tile_size):
+            i_end = min(i + tile_size, img1.shape[0])
+            j_end = min(j + tile_size, img1.shape[1])
+            if (i//tile_size + j//tile_size) % 2:
+                checker[i:i_end, j:j_end] = img1[i:i_end, j:j_end]
+            else:
+                checker[i:i_end, j:j_end] = img2[i:i_end, j:j_end]
+    return checker
+
+
+def edge_overlay(img1, img2):
+    edges1 = feature.canny(img1)
+    edges2 = feature.canny(img2)
+
+    overlay = np.zeros((*img1.shape, 3))
+    overlay[edges1] = [1, 0, 0]  # Red for img1 edges
+    overlay[edges2] = [0, 1, 0]  # Green for img2 edges
+
+    return overlay
+
+
+def visualize_registration_quality(img1, img2, window_size=20):
+    fig, (ax1,ax2,ax3,ax4) = plt.subplots(2,2)
+    # Checkerboard
+    ax1.imshow(create_checkerboard(img1, img2), cmap='gray', tile_size=window_size)
+    ax1.set_title('Checkerboard Pattern')
+
+    # Difference & Heat maps
+    diff = np.abs(img1 - img2)
+    im2 = ax2.imshow(diff, cmap='RdBu_r')
+    ax2.set_title('Difference Map')
+    plt.colorbar(im2, ax=ax2)
+
+    # Local similarity
+    sim_map = local_similarity_map(img1, img2, window_size=window_size)
+    im3 = ax3.imshow(sim_map, cmap='viridis')
+    ax3.set_title('Local Similarity')
+    plt.colorbar(im3, ax=ax3)
+
+    # Edge overlay
+    ax4.imshow(edge_overlay(img1, img2))
+    ax4.set_title('Edge Overlay')
+
+    plt.tight_layout()
+    plt.show()
