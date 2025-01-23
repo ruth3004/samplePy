@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.11 (samplePy)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="cascade-env" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (samplePy)" project-jdk-type="Python SDK" />
 </project>

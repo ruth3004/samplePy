@@ -182,11 +182,27 @@ class DateTimeEncoder(json.JSONEncoder):
 
 # Function to print tree of Pydantic model
 def tree(model: Any, indent: int = 0):
-    for field_name, field_type in model.__annotations__.items():
-        print(' ' * indent + f'{field_name}: {field_type}')
-        field_value = getattr(model, field_name, None)
-        if isinstance(field_value, BaseModel):
-            tree(field_value, indent + 4)
-        elif isinstance(field_value, list) and len(field_value) > 0 and isinstance(field_value[0], BaseModel):
-            tree(field_value[0], indent + 4)
+    """
+    Recursively print all fields of a Pydantic model, including non-annotated fields.
+    """
+    if isinstance(model, BaseModel):
+        # Get all fields including those added dynamically
+        for field_name, field_value in model:
+            print(' ' * indent + f'{field_name}: {type(field_value).__name__}')
+            if isinstance(field_value, BaseModel):
+                tree(field_value, indent + 4)
+            elif isinstance(field_value, list) and len(field_value) > 0:
+                if isinstance(field_value[0], BaseModel):
+                    for item in field_value:
+                        tree(item, indent + 4)
+                else:
+                    print(' ' * (indent + 4) + f'{field_value}')
+            elif isinstance(field_value, dict):
+                for key, value in field_value.items():
+                    print(' ' * (indent + 4) + f'{key}: {type(value).__name__}')
+            else:
+                print(' ' * (indent + 4) + f'{field_value}')
+    else:
+        print(' ' * indent + f'{model}: {type(model).__name__}')
+
 

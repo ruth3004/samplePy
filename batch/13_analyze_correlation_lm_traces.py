@@ -123,6 +123,10 @@ def process_sample(sample_id, db_path):
         # Compute correlation matrices
         correlation_matrices = compute_correlation_matrices(averaged_traces)
 
+        # Create report folder
+        report_folder = os.path.join(exp.paths.root_path, "report")
+        os.makedirs(report_folder, exist_ok=True)
+
         for i, matrix in enumerate([correlation_matrices[0], correlation_matrices[len(correlation_matrices) // 2],
                                     correlation_matrices[-1]]):
             plot_correlation_matrix(matrix, averaged_labels,

@@ -3,23 +3,30 @@ import matplotlib.pyplot as plt
 import sys
 import os
 import datetime
+import argparse
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from sample_db import SampleDB
 
-
-def create_status_table(db_path):
+def create_status_table(db_path, sample_list=None):
     # Load the sample database
     sample_db = SampleDB()
     sample_db.load(db_path)
 
-    # Create a DataFrame from the sample database
+    # If no sample list is provided, use all samples in the database
+    if sample_list is None:
+        sample_list = list(sample_db.samples.keys())
+
+    # Create a DataFrame from the sample database, filtering for the specified samples
     data = []
-    for sample_id, sample_data in sample_db.samples.items():
-        row = {'Sample ID': sample_id}
-        for step in processing_steps:
-            row[step] = sample_data.get(step)
-        data.append(row)
+    for sample_id in sample_list:
+        if sample_id in sample_db.samples:
+            row = {'Sample ID': sample_id}
+            for step in processing_steps:
+                row[step] = sample_db.samples[sample_id].get(step)
+            data.append(row)
+        else:
+            print(f"Warning: Sample {sample_id} not found in the database.")
 
     df = pd.DataFrame(data)
     df.set_index('Sample ID', inplace=True)
@@ -45,9 +52,7 @@ def create_status_table(db_path):
         if row == 0:
             cell.set_text_props(rotation=90, ha='left', va='bottom')
             cell.set_height(0.05)  # Decrease height of header row
-            # Move the text to the bottom of the cell
             cell._text.set_y(-0.15)
-            #cell.set_width(0.1)  # Adjust width of header cells
         if col == -1:
             cell.set_width(0.2)  # Adjust width of index column
 
@@ -55,11 +60,9 @@ def create_status_table(db_path):
     for (row, col), cell in table.get_celld().items():
         if row == 0:  # Header
             cell.set_text_props(weight='bold')
-            #cell.set_facecolor('#4472C4')
             cell.set_text_props(color='black')
         elif col == -1:  # Row labels
             cell.set_text_props(weight='bold')
-            #cell.set_facecolor('#4472C4')
             cell.set_text_props(color='black')
         else:
             value = df.iloc[row - 1, col]
@@ -79,7 +82,6 @@ def create_status_table(db_path):
     plt.close()
 
     print("Status table saved as 'sample_processing_status.png'")
-
 
 # List of processing steps
 processing_steps = [
@@ -103,5 +105,16 @@ processing_steps = [
 ]
 
 if __name__ == "__main__":
-    db_path = r'\\tungsten-nas.fmi.ch\tungsten\scratch\gfriedri\montruth\sample_db.csv'
-    create_status_table(db_path)
+    parser = argparse.ArgumentParser(description="Create a status table for specified samples or all samples")
+    parser.add_argument("--sample_list", help="Path to a text file containing sample IDs (optional)")
+    parser.add_argument("--db_path", default=r'\\tungsten-nas.fmi.ch\tungsten\scratch\gfriedri\montruth\sample_db.csv',
+                        help="Path to the sample database CSV file")
+    args = parser.parse_args()
+
+    if args.sample_list:
+        with open(args.sample_list, 'r') as f:
+            sample_list = f.read().splitlines()
+    else:
+        sample_list = None
+
+    create_status_table(args.db_path, sample_list)
