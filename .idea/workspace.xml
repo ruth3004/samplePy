@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66d86078-e06b-4e01-8448-8c72b5e5da0b" name="Changes" comment="rough folder structure of samplePy with motion correction">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/samplePy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/samplePy.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
@@ -12,6 +13,11 @@
       <change beforePath="$PROJECT_DIR$/notebooks/02_register_lm_trials_lm_stack.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/02_register_lm_trials_lm_stack.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notebooks/22_segment_lm_stack_from_em_warped_stack.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/22_segment_lm_stack_from_em_warped_stack.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notebooks/34_register_em_stack_lm_trials.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/34_register_em_stack_lm_trials.ipynb" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/notebooks/41_assign_microglomeruli.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/notebooks/40_create_lut.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/40_create_lut.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -291,7 +297,11 @@
       <workItem from="1737548944338" duration="19983000" />
       <workItem from="1737573256412" duration="3116000" />
       <workItem from="1737627825497" duration="3000" />
+<<<<<<< Updated upstream
       <workItem from="1737632879537" duration="18398000" />
+=======
+      <workItem from="1737627965854" duration="92547000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
