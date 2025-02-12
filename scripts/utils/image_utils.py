@@ -1182,7 +1182,7 @@ def edge_overlay(img1, img2):
 def visualize_registration_quality(img1, img2, window_size=20):
     fig, (ax1,ax2,ax3,ax4) = plt.subplots(2,2)
     # Checkerboard
-    ax1.imshow(create_checkerboard(img1, img2), cmap='gray', tile_size=window_size)
+    ax1.imshow(create_checkerboard(img1, img2, tile_size=window_size), cmap='gray')
     ax1.set_title('Checkerboard Pattern')
 
     # Difference & Heat maps

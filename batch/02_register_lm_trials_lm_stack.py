@@ -17,8 +17,6 @@ import logging
 import datetime
 
 
-
-
 def setup_logging(script_name):
     log_folder = r'\\tungsten-nas.fmi.ch\tungsten\scratch\gfriedri\montruth\2P_RawData\log'
     os.makedirs(log_folder, exist_ok=True)
@@ -118,6 +116,7 @@ def main():
     group.add_argument("-l", "--list", help="Path to text file containing sample IDs")
     parser.add_argument("--db_path", default=r'\\tungsten-nas.fmi.ch\tungsten\scratch\gfriedri\montruth\sample_db.csv',
                         help="Path to the sample database CSV file")
+    parser.add_argument("-o", "--overwrite", help="Overwrite existing processed files", action="store_true")
     args = parser.parse_args()
 
     if args.sample:

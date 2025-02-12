@@ -9,6 +9,7 @@ samplePy is designed to process, analyze, and correlate multi-modal imaging data
 
 The pipeline is organized into several key stages:
 
+
 1. **LM Data Processing**
    - Load experiments and create samples
    - Register LM trials and stacks
