@@ -79,9 +79,11 @@ def bin_image(image, factor=2):
     return binned_image
 
 
+import numpy as np
+
 def split_double_planes(image):
     """
-    Split planes in the image based on doubling factor.
+    Split planes in the image vertically (top and bottom).
 
     Parameters:
     - image (numpy.ndarray): 2D, 3D, or 4D array.
@@ -90,13 +92,13 @@ def split_double_planes(image):
         If 4D: shape (n_planes, time, height, width)
 
     Returns:
-    - numpy.ndarray: Array with doubled planes
-        If input is 2D: shape (2, height, width // 2)
-        If input is 3D: shape (2 * n_planes, height, width // 2)
-        If input is 4D: shape (2 * n_planes, time, height, width // 2)
+    - numpy.ndarray: Array with doubled planes (top and bottom split)
+        If input is 2D: shape (2, height // 2, width)
+        If input is 3D: shape (2 * n_planes, height // 2, width)
+        If input is 4D: shape (2 * n_planes, time, height // 2, width)
 
     Raises:
-    - ValueError: If input is not a 2D, 3D, or 4D numpy array or if width is not even.
+    - ValueError: If input is not a 2D, 3D, or 4D numpy array or if height is not even.
     """
     if not isinstance(image, np.ndarray):
         raise ValueError("Input must be a numpy array")
@@ -106,32 +108,33 @@ def split_double_planes(image):
 
     if image.ndim == 2:
         h, w = image.shape
-        if w % 2 != 0:
-            raise ValueError(f"Width must be even, got {w}")
+        if h % 2 != 0:
+            raise ValueError(f"Height must be even, got {h}")
 
-        planes_stack = np.zeros((2, h, w // 2), dtype=image.dtype)
-        planes_stack[0] = image[:, :w // 2]
-        planes_stack[1] = image[:, w // 2:]
+        planes_stack = np.zeros((2, h // 2, w), dtype=image.dtype)
+        planes_stack[0] = image[:h // 2, :]
+        planes_stack[1] = image[h // 2:, :]
 
     elif image.ndim == 3:
         n_planes, h, w = image.shape
-        if w % 2 != 0:
-            raise ValueError(f"Width must be even, got {w}")
+        if h % 2 != 0:
+            raise ValueError(f"Height must be even, got {h}")
 
-        planes_stack = np.zeros((n_planes * 2, h, w // 2), dtype=image.dtype)
-        planes_stack[0::2] = image[:, :, :w // 2]
-        planes_stack[1::2] = image[:, :, w // 2:]
+        planes_stack = np.zeros((n_planes * 2, h // 2, w), dtype=image.dtype)
+        planes_stack[0::2] = image[:, :h // 2, :]
+        planes_stack[1::2] = image[:, h // 2:, :]
 
     else:  # 4D case
         n_planes, t, h, w = image.shape
-        if w % 2 != 0:
-            raise ValueError(f"Width must be even, got {w}")
+        if h % 2 != 0:
+            raise ValueError(f"Height must be even, got {h}")
 
-        planes_stack = np.zeros((n_planes * 2, t, h, w // 2), dtype=image.dtype)
-        planes_stack[0::2] = image[:, :, :, :w // 2]
-        planes_stack[1::2] = image[:, :, :, w // 2:]
+        planes_stack = np.zeros((n_planes * 2, t, h // 2, w), dtype=image.dtype)
+        planes_stack[0::2] = image[:, :, :h // 2, :]
+        planes_stack[1::2] = image[:, :, h // 2:, :]
 
     return planes_stack
+
 
 
 def read_metadata(tifffile_path: str) -> dict:
@@ -703,7 +706,6 @@ def plot_image_correlation(tiles, stack, best_plane_matrix, all_correlations_mat
         plt.show()
 
 
-# Creating meshgrid
 def warp_stack_to_plane(stack, plane, transformation, thickness):
     """
     Warp a stack of images to a specified plane using a given transformation.
@@ -774,6 +776,108 @@ def warp_stack_to_plane(stack, plane, transformation, thickness):
     except Exception as e:
         raise RuntimeError(f"Error during stack warping: {str(e)}")
 
+
+def warp_plane_to_stack(plane_2d, stack, transformation, thickness=3):
+    """
+    Warp a 2D plane into a 3D stack using a given transformation.
+    The 2D plane is first converted to a 3D volume by stacking identical planes.
+
+    Parameters:
+    - plane_2d (np.ndarray): 2D numpy array representing the source plane.
+    - stack (np.ndarray): 3D numpy array representing the target stack.
+    - transformation (SimilarityTransform): Transformation to apply to warp the plane to the stack.
+    - thickness (int): Number of identical planes to stack together.
+
+    Returns:
+    - np.ndarray: 3D array representing the plane warped into the stack space.
+    """
+    # Create a 3D volume by stacking identical planes
+    # upsampled_plane = scipy.ndimage.zoom(plane_2d, zoom=(10, 4), order=1)
+    plane_3d = np.stack([plane_2d] * thickness, axis=0)
+
+    # Input validation
+    if not isinstance(plane_3d, np.ndarray) or plane_3d.ndim != 3:
+        raise ValueError("Plane must be a 3D numpy array")
+    if not isinstance(stack, np.ndarray) or stack.ndim != 3:
+        raise ValueError("Stack must be a 3D numpy array")
+    if not isinstance(transformation, SimilarityTransform):
+        raise ValueError("Transformation must be a SimilarityTransform object")
+
+    try:
+        # Create a result array with the same shape as the stack
+        result = np.zeros_like(stack)
+
+        # Create a denser grid of coordinates for the 3D plane
+        zz, yy, xx = np.meshgrid(
+            np.arange(plane_3d.shape[0]),  # Keep z-axis at original resolution
+            np.linspace(0, plane_3d.shape[1] - 1, plane_3d.shape[1] * 4),  # 4x denser sampling in y
+            np.linspace(0, plane_3d.shape[2] - 1, plane_3d.shape[2] * 4),  # 4x denser sampling in x
+            indexing='ij'
+        )
+
+        # Create 3D coordinates for the plane
+        plane_coords = np.column_stack((
+            zz.flatten(),  # z coordinates
+            yy.flatten(),  # y coordinates
+            xx.flatten()  # x coordinates
+        ))
+
+        # print(f"Plane coordinates shape: {plane_coords.shape}")
+
+        # Adjust z-coordinates to center the plane stack
+        # This shifts the z-coordinate so that the center of the plane stack is at z=0
+        plane_coords[:, 0] = plane_coords[:, 0] - (thickness - 1) / 2
+
+        # Add homogeneous coordinate for transformation
+        homogeneous_coords = np.column_stack((plane_coords, np.ones(plane_coords.shape[0])))
+
+        # Apply transformation to get coordinates in the stack
+        stack_coords_homogeneous = homogeneous_coords @ transformation.params.T
+        stack_coords = stack_coords_homogeneous[:, :3]
+
+        # print(f"Stack coordinates shape: {stack_coords.shape}")
+
+        # Round to get integer indices
+        stack_indices = np.round(stack_coords).astype(np.int32)
+
+        # Filter out coordinates outside the stack bounds
+        valid_mask = (
+                (stack_indices[:, 0] >= 0) & (stack_indices[:, 0] < stack.shape[0]) &
+                (stack_indices[:, 1] >= 0) & (stack_indices[:, 1] < stack.shape[1]) &
+                (stack_indices[:, 2] >= 0) & (stack_indices[:, 2] < stack.shape[2])
+        )
+
+        # Get valid indices
+        valid_stack_indices = stack_indices[valid_mask]
+
+        # Get original plane coordinates (adjusted back to positive indices)
+        valid_plane_indices = plane_coords[valid_mask].astype(np.int32)
+        valid_plane_indices[:, 0] += (thickness - 1) // 2  # Adjust z back to original range
+
+        # Ensure plane indices are within bounds
+        valid_plane_indices = np.clip(
+            valid_plane_indices,
+            [0, 0, 0],
+            [plane_3d.shape[0] - 1, plane_3d.shape[1] - 1, plane_3d.shape[2] - 1]
+        )
+
+        # Get the values from the plane
+        valid_plane_values = plane_3d[
+            valid_plane_indices[:, 0],
+            valid_plane_indices[:, 1],
+            valid_plane_indices[:, 2]
+        ]
+
+        # Place the plane values into the result array
+        for i, (z, y, x) in enumerate(valid_stack_indices):
+            result[z, y, x] = valid_plane_values[i]
+
+        return result
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise RuntimeError(f"Error during plane warping: {str(e)}")
 
 def slice_into_uniform_tiles(image, nx, ny, plot=True, return_plot=False):
     """
